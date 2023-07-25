@@ -6,6 +6,7 @@ might happen here.
 
 from section import Section
 
+
 class Room(Section):
 
     def __init__(self):
