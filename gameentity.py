@@ -23,6 +23,8 @@ class GameEntity:
         self._start_y = start_y
         self._height = height
         self._width = width
+        self._current_x = start_x
+        self._current_y = start_y
 
     @property
     def name(self):
@@ -44,6 +46,14 @@ class GameEntity:
     def width(self):
         return self._width
 
+    @property
+    def current_x(self):
+        return self._current_x
+
+    @property
+    def current_y(self):
+        return self._current_y
+
     @start_x.setter
     def start_x(self, start_x: int):
         self._start_x = start_x
@@ -59,3 +69,11 @@ class GameEntity:
     @width.setter
     def width(self, width: int):
         self._width = width
+
+    @current_x.setter
+    def current_x(self, current_x: int):
+        self._current_x = current_x
+
+    @current_y.setter
+    def current_y(self, current_y: int):
+        self._current_y = current_y
