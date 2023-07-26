@@ -8,6 +8,54 @@ the maze. Derived classes might overload, constrain or overload
 these aspects as required.
 """
 
+
 class GameEntity:
-    def __init__(self):
-        pass
+    def __init__(
+        self,
+        name: str,
+        start_x: int = 0,
+        start_y: int = 0,
+        height: int = 1,
+        width: int = 1,
+    ):
+        self._name = name
+        self._start_x = start_x
+        self._start_y = start_y
+        self._height = height
+        self._width = width
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def start_x(self):
+        return self._start_x
+
+    @property
+    def start_y(self):
+        return self._start_y
+
+    @property
+    def height(self):
+        return self._height
+
+    @property
+    def width(self):
+        return self._width
+
+    @start_x.setter
+    def start_x(self, start_x: int):
+        self._start_x = start_x
+
+    @start_y.setter
+    def start_y(self, start_y: int):
+        self._start_y = start_y
+
+    @height.setter
+    def height(self, height: int):
+        self._start_x = height
+
+    @width.setter
+    def width(self, width: int):
+        self._width = width
