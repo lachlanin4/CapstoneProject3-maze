@@ -11,6 +11,9 @@ player can navigate through any given linkage/access point.
 Not all access points might be available all of the time.
 """
 
-class Section:
+from gameentity import GameEntity
+
+class Section(GameEntity):
     def __init__(self):
+        super().__init__()
         pass
