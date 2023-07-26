@@ -7,8 +7,8 @@ nice awaits when you exit.
 
 from section import Section
 
-class Exit(Section):
 
-    def __init__(self):
-        super().__init__()
+class Exit(Section):
+    def __init__(self, name: str):
+        super().__init__(name)
         pass

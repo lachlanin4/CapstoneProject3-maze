@@ -13,7 +13,8 @@ Not all access points might be available all of the time.
 
 from gameentity import GameEntity
 
+
 class Section(GameEntity):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, name: str):
+        super().__init__(name)
         pass

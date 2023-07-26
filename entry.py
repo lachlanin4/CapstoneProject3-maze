@@ -8,8 +8,8 @@ behind you and locks you in!
 
 from section import Section
 
-class Entry(Section):
 
-    def __init__(self):
-        super().__init__()
+class Entry(Section):
+    def __init__(self, name: str):
+        super().__init__(name)
         pass

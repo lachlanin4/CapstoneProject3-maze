@@ -7,7 +7,8 @@ forward, backwards, left and right to begin with.
 
 from gameentity import GameEntity
 
+
 class Player(GameEntity):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, name: str):
+        super().__init__(name)
         pass

@@ -8,7 +8,6 @@ from section import Section
 
 
 class Room(Section):
-
-    def __init__(self):
-        super().__init__()
+    def __init__(self, name: str):
+        super().__init__(name)
         pass

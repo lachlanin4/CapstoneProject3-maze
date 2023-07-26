@@ -6,8 +6,8 @@ left or right hand. Its shaped like the letter 'T'.
 
 from section import Section
 
-class Tee(Section):
 
-    def __init__(self):
-        super().__init__()
+class Tee(Section):
+    def __init__(self, name: str):
+        super().__init__(name)
         pass
