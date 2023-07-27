@@ -3,7 +3,8 @@ import turtle as t
 sophia = t.Turtle()
 sophia.color('pink')
 sophia.shape('turtle')
-
+t.Turtle().screen.title('Turtle Escape')
+t.Turtle().screen.bgcolor('#add8e6')
 # for steps in range(100):
 #     for c in ('blue', 'red', 'green'):
 #         t.color(c)
@@ -54,4 +55,4 @@ sophia.shape('turtle')
 #   holly.forward(randint(1,5))
 
 
-input("Press Enter to close")
+t.mainloop()
