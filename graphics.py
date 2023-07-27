@@ -2,34 +2,42 @@ import turtle as t
 
 t.Turtle().screen.title('Turtle Escape')
 t.Turtle().screen.bgcolor('#add8e6')
+t.Turtle().hideturtle() #for some reason this does not hide the original turtle so change colour to blend with background
+t.Turtle().color('#add8e6')
 
 #turtle that will draw maze
 maze_turtle = t.Turtle()
 maze_turtle.pensize(4)
+maze_turtle.color('blue')
 
-#Creates a square
+#The below maze is a 180x180 maze with pathways of 30 width
+#Creates a square, basic outline of maze
 for i in range (4):
   maze_turtle.up()
   maze_turtle.fd(30)
   maze_turtle.down()
-  maze_turtle.fd(270)
+  maze_turtle.fd(150)
   maze_turtle.left(90)
 
 #Made some functions to help draw because I got tired
 #in this mode the angles are 0 - east, 90 - north, 180-west,270-south
 def drawLeft():
+  maze_turtle.down()
   maze_turtle.setheading(180)
   maze_turtle.fd(30)
 
 def drawRight():
+  maze_turtle.down()
   maze_turtle.seth(0)
   maze_turtle.fd(30)
 
 def drawUp():
+  maze_turtle.down()
   maze_turtle.seth(90)
   maze_turtle.fd(30)
 
 def drawDown():
+  maze_turtle.down()
   maze_turtle.seth(270)
   maze_turtle.fd(30)
 
@@ -39,43 +47,55 @@ def skipLine(angle):
   maze_turtle.fd(30)
   maze_turtle.down()
   
-drawRight()
 
-sophia = t.Turtle()
-sophia.color('pink')
-sophia.shape('turtle')
-sophia.fd(30)
-sophia.goto(15,0)
-sophia.left(90)
+#drawing a maze
+maze_turtle.up()
+maze_turtle.goto(30,0);drawUp();drawRight();drawRight();skipLine(0)
+drawDown();drawRight();drawRight();drawUp();drawLeft();drawUp()
+drawLeft();skipLine(180);drawLeft();drawLeft();drawUp();drawRight()
+drawRight();drawRight();drawRight();skipLine(0);drawUp();drawLeft()
+skipLine(180);drawLeft();drawLeft();skipLine(180);drawLeft();drawUp()
+drawUp();drawRight();drawDown();drawRight();drawRight();skipLine(0)
+drawRight();drawRight()
+
+maze_turtle.ht() #hiding the turtle that drew it
+
+player = t.Turtle()
+player.color('pink')
+player.shape('turtle')
+player.fd(30)
+player.goto(15,0)
+player.left(90)
+
 
 
 """
 #Movement functions in turtle
-sophia.position() #shorthand:.pos
-sophia.forward(25) #also accepts negative parameters
-#forward can be shortened to sophia.fd
-sophia.backward(90) #shorthand: .back and .bk
-sophia.right(90) #rotates clockwise. parameter angle in degrees shorthand: .rt
-sophia.left(180) #shorthand:.lt
-sophia.heading() #find out angle turtle is heading
-sophia.goto(30.50) #tells turtle where to go x,y parameters
-sophia.setposition(600,90) #sets turtle position, xy parameters shorthand:setpos
-sophia.setx()#just sets x coordinate leaves y unchanged
-sophia.sety()#sets y coordinate
-sophia.setheading()#sets angle turtle will face shorthand:.seth
-sophia.home()#returns turtle to 0,0 coordinates and it's starting angle
-sophia.dot(10,'green') #puts a dot on screen where turtle is, parameters are size and colour
-sophia.fd(100);sophia.dot(20,'blue');sophia.fd(100) #You cannot draw with dot it is just a dot
+player.position() #shorthand:.pos
+player.forward(25) #also accepts negative parameters
+#forward can be shortened to player.fd
+player.backward(90) #shorthand: .back and .bk
+player.right(90) #rotates clockwise. parameter angle in degrees shorthand: .rt
+player.left(180) #shorthand:.lt
+player.heading() #find out angle turtle is heading
+player.goto(30.50) #tells turtle where to go x,y parameters
+player.setposition(600,90) #sets turtle position, xy parameters shorthand:setpos
+player.setx()#just sets x coordinate leaves y unchanged
+player.sety()#sets y coordinate
+player.setheading()#sets angle turtle will face shorthand:.seth
+player.home()#returns turtle to 0,0 coordinates and it's starting angle
+player.dot(10,'green') #puts a dot on screen where turtle is, parameters are size and colour
+player.fd(100);player.dot(20,'blue');player.fd(100) #You cannot draw with dot it is just a dot
 #didn't know that you could use semi colons in python like this?
 
 #Making a stamp, stamps leave a print of your shape in the place your turtle is
 #If you make it as a variable you can use .clearstamp(variableName) to delete it
-stampy =sophia.stamp()
-sophia.fd(50)
-sophia.clearstamp(stampy)
+stampy =player.stamp()
+player.fd(50)
+player.clearstamp(stampy)
 
 .clearstamps() to delete all stamps
-sophia.hideturtle() short: ht()
+player.hideturtle() short: ht()
 .showturtle() .st()
 
 .pensize parameter is width
@@ -103,14 +123,14 @@ sophia.hideturtle() short: ht()
 #         break
 # t.end_fill()
 
-# sophia.penup()
-# sophia.goto(-160, 100)
-# sophia.pendown()
+# player.penup()
+# player.goto(-160, 100)
+# player.pendown()
 
 # from random import randint
 
 # for movement in range(100):
-#   sophia.forward(randint(1,5))
+#   player.forward(randint(1,5))
 #   josh.forward(randint(1,5))
 #   damini.forward(randint(1,5))
 #   holly.forward(randint(1,5))
