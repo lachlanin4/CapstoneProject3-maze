@@ -1,10 +1,24 @@
 import turtle as t
 
+t.Turtle().screen.title('Turtle Escape')
+t.Turtle().screen.bgcolor('#add8e6')
+
+#turtle that will draw maze
+maze_turtle = t.Turtle()
+maze_turtle.pensize(4)
+
+#Creates a square
+for i in range (4):
+  
+  maze_turtle.fd(300)
+  maze_turtle.left(90)
+
+maze_turtle.goto
 sophia = t.Turtle()
 sophia.color('pink')
 sophia.shape('turtle')
-t.Turtle().screen.title('Turtle Escape')
-t.Turtle().screen.bgcolor('#add8e6')
+sophia.fd(30)
+
 
 """
 #Movement functions in turtle
