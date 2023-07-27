@@ -9,15 +9,44 @@ maze_turtle.pensize(4)
 
 #Creates a square
 for i in range (4):
-  
-  maze_turtle.fd(300)
+  maze_turtle.up()
+  maze_turtle.fd(30)
+  maze_turtle.down()
+  maze_turtle.fd(270)
   maze_turtle.left(90)
 
-maze_turtle.goto
+#Made some functions to help draw because I got tired
+#in this mode the angles are 0 - east, 90 - north, 180-west,270-south
+def drawLeft():
+  maze_turtle.setheading(180)
+  maze_turtle.fd(30)
+
+def drawRight():
+  maze_turtle.seth(0)
+  maze_turtle.fd(30)
+
+def drawUp():
+  maze_turtle.seth(90)
+  maze_turtle.fd(30)
+
+def drawDown():
+  maze_turtle.seth(270)
+  maze_turtle.fd(30)
+
+def skipLine(angle):
+  maze_turtle.up()
+  maze_turtle.seth(angle)
+  maze_turtle.fd(30)
+  maze_turtle.down()
+  
+drawRight()
+
 sophia = t.Turtle()
 sophia.color('pink')
 sophia.shape('turtle')
 sophia.fd(30)
+sophia.goto(15,0)
+sophia.left(90)
 
 
 """
