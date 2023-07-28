@@ -73,18 +73,26 @@ maze1ExitPoint = (165.00,180.00)
 def playerUp():
   player.seth(90)
   player.fd(15)
+  if player.position()==maze1ExitPoint:
+    print("You have won!")
 
 def playerDown():
   player.seth(270)
   player.fd(15)
+  if player.position()==maze1ExitPoint:
+    print("You have won!")
 
 def playerLeft():
   player.seth(180)
   player.fd(15)
+  if player.position()==maze1ExitPoint:
+    print("You have won!")
 
 def playerRight():
   player.seth(0)
   player.fd(15)
+  if player.position()==maze1ExitPoint:
+    print("You have won!")
 
 Screen().onkey(playerUp,'Up')
 Screen().onkey(playerLeft,'Left')
@@ -101,9 +109,8 @@ player.seth(90)
 player.down()
 
 print(player.position())
-while True:
-  if player.position()==maze1ExitPoint:
-    print("You have won!")
+#while True:
+
   # else:
   #   print("Still going") #Creates an error
 """
