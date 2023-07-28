@@ -21,8 +21,33 @@ class Maze(t.Turtle):
       drawer.down()
       drawer.fd(150)
       drawer.left(90)
-    
-  def 
+
+  def drawLeft(self,drawer):
+    drawer.down()
+    drawer.setheading(180)
+    drawer.fd(30)
+
+  def drawRight(self,drawer):
+    drawer.down()
+    drawer.seth(0)
+    drawer.fd(30)
+
+  def drawUp(self,drawer):
+    drawer.down()
+    drawer.seth(90)
+    drawer.fd(30)
+
+  def drawDown(self,drawer):
+    drawer.down()
+    drawer.seth(270)
+    drawer.fd(30)
+
+  def skipLine(self,drawer,angle):
+    drawer.up()
+    drawer.seth(angle)
+    drawer.fd(30)
+    drawer.down()
+         
 #turtle that will draw maze
 maze_turtle = t.Turtle()
 maze_turtle.pensize(4)
@@ -40,44 +65,17 @@ maze_turtle.pen(speed=10)
 maze1 = Maze(maze_turtle)
 maze1.createOutline(maze_turtle)
 
-#Made some functions to help draw because I got tired
 #in this mode the angles are 0 - east, 90 - north, 180-west,270-south
-def drawLeft():
-  maze_turtle.down()
-  maze_turtle.setheading(180)
-  maze_turtle.fd(30)
-
-def drawRight():
-  maze_turtle.down()
-  maze_turtle.seth(0)
-  maze_turtle.fd(30)
-
-def drawUp():
-  maze_turtle.down()
-  maze_turtle.seth(90)
-  maze_turtle.fd(30)
-
-def drawDown():
-  maze_turtle.down()
-  maze_turtle.seth(270)
-  maze_turtle.fd(30)
-
-def skipLine(angle):
-  maze_turtle.up()
-  maze_turtle.seth(angle)
-  maze_turtle.fd(30)
-  maze_turtle.down()
-  
 
 #drawing a maze
 maze_turtle.up()
-maze_turtle.goto(30,0);drawUp();drawRight();drawRight();skipLine(0)
-drawDown();drawRight();drawRight();drawUp();drawLeft();drawUp()
-drawLeft();skipLine(180);drawLeft();drawLeft();drawUp();drawRight()
-drawRight();drawRight();drawRight();skipLine(0);drawUp();drawLeft()
-skipLine(180);drawLeft();drawLeft();skipLine(180);drawLeft();drawUp()
-drawUp();drawRight();drawDown();drawRight();drawRight();skipLine(0)
-drawRight();drawRight()
+maze_turtle.goto(30,0);maze1.drawUp(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.skipLine(maze_turtle,0)
+maze1.drawDown(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawUp(maze_turtle);maze1.drawUp(maze_turtle)
+maze1.drawLeft(maze_turtle);maze1.skipLine(maze_turtle,180);maze1.drawUp(maze_turtle);maze1.drawRight(maze_turtle)
+maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.skipLine(maze_turtle,0);maze1.drawUp(maze_turtle)
+maze1.skipLine(maze_turtle,180);maze1.skipLine(maze_turtle,180);maze1.drawUp(maze_turtle)
+maze1.drawUp(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.skipLine(maze_turtle,0)
+maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle)
 
 maze_turtle.ht() #hiding the turtle that drew it
 
