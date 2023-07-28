@@ -7,11 +7,22 @@ t.Turtle().screen.bgcolor('#add8e6')
 t.Turtle().hideturtle() #for some reason this does not hide the original turtle so change colour to blend with background
 t.Turtle().color('#add8e6')
 
-class Maze():
-  def __init__(self):
+class Maze(t.Turtle):
+  def __init__(self,turtle):
     self.width = None
     self.height = None
+    self.drawer = turtle
 
+
+  def createOutline(self,drawer):
+    for i in range (4):
+      drawer.up()
+      drawer.fd(30)
+      drawer.down()
+      drawer.fd(150)
+      drawer.left(90)
+    
+  def 
 #turtle that will draw maze
 maze_turtle = t.Turtle()
 maze_turtle.pensize(4)
@@ -20,12 +31,14 @@ maze_turtle.pen(speed=10)
 
 #The below maze is a 180x180 maze with pathways of 30 width
 #Creates a square, basic outline of maze
-for i in range (4):
-  maze_turtle.up()
-  maze_turtle.fd(30)
-  maze_turtle.down()
-  maze_turtle.fd(150)
-  maze_turtle.left(90)
+# for i in range (4):
+#   maze_turtle.up()
+#   maze_turtle.fd(30)
+#   maze_turtle.down()
+#   maze_turtle.fd(150)
+#   maze_turtle.left(90)
+maze1 = Maze(maze_turtle)
+maze1.createOutline(maze_turtle)
 
 #Made some functions to help draw because I got tired
 #in this mode the angles are 0 - east, 90 - north, 180-west,270-south
