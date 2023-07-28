@@ -7,6 +7,11 @@ t.Turtle().screen.bgcolor('#add8e6')
 t.Turtle().hideturtle() #for some reason this does not hide the original turtle so change colour to blend with background
 t.Turtle().color('#add8e6')
 
+class Maze():
+  def __init__(self):
+    self.width = None
+    self.height = None
+
 #turtle that will draw maze
 maze_turtle = t.Turtle()
 maze_turtle.pensize(4)
@@ -38,14 +43,11 @@ def drawUp():
   maze_turtle.down()
   maze_turtle.seth(90)
   maze_turtle.fd(30)
-  time.sleep(0.5)
-
 
 def drawDown():
   maze_turtle.down()
   maze_turtle.seth(270)
   maze_turtle.fd(30)
-  time.sleep(0.5)
 
 def skipLine(angle):
   maze_turtle.up()
@@ -76,24 +78,28 @@ def playerUp():
   player.fd(15)
   if player.position()==maze1ExitPoint:
     print("You have won!")
+  time.sleep(0.5)
 
 def playerDown():
   player.seth(270)
   player.fd(15)
   if player.position()==maze1ExitPoint:
     print("You have won!")
+  time.sleep(0.5)
 
 def playerLeft():
   player.seth(180)
   player.fd(15)
   if player.position()==maze1ExitPoint:
     print("You have won!")
+  time.sleep(0.5)
 
 def playerRight():
   player.seth(0)
   player.fd(15)
   if player.position()==maze1ExitPoint:
     print("You have won!")
+  time.sleep(0.5)
 
 Screen().onkey(playerUp,'Up')
 Screen().onkey(playerLeft,'Left')
