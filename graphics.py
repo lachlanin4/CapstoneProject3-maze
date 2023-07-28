@@ -1,5 +1,6 @@
 import turtle as t
 from turtle import Screen
+import time
 
 t.Turtle().screen.title('Turtle Escape')
 t.Turtle().screen.bgcolor('#add8e6')
@@ -37,6 +38,8 @@ def drawUp():
   maze_turtle.down()
   maze_turtle.seth(90)
   maze_turtle.fd(30)
+  time.sleep(0.5)
+
 
 def drawDown():
   maze_turtle.down()
@@ -62,6 +65,33 @@ drawRight();drawRight()
 
 maze_turtle.ht() #hiding the turtle that drew it
 
+#starting and ending points to the maze
+maze1EntryPoint = (15.00,0.00)
+maze1ExitPoint = (165.00,180.00)
+
+
+def playerUp():
+  player.seth(90)
+  player.fd(15)
+
+def playerDown():
+  player.seth(270)
+  player.fd(15)
+
+def playerLeft():
+  player.seth(180)
+  player.fd(15)
+
+def playerRight():
+  player.seth(0)
+  player.fd(15)
+
+Screen().onkey(playerUp,'Up')
+Screen().onkey(playerLeft,'Left')
+Screen().onkey(playerRight,'Right')
+Screen().onkey(playerDown,'Down')
+Screen().listen()
+
 player = t.Turtle()
 player.color('pink')
 player.shape('turtle')
@@ -70,31 +100,12 @@ player.goto(15,0)
 player.seth(90)
 player.down()
 
-def playerUp():
-  player.seth(90)
-  player.fd(30)
-
-def playerDown():
-  player.seth(270)
-  player.fd(30)
-
-def playerLeft():
-  player.seth(180)
-  player.fd(30)
-
-def playerRight():
-  player.seth(0)
-  player.fd(30)
-
-Screen().onkey(playerUp,'Up')
-Screen().onkey(playerLeft,'Left')
-Screen().onkey(playerRight,'Right')
-Screen().onkey(playerDown,'Down')
-Screen().listen()
-
-
-
-
+print(player.position())
+while True:
+  if player.position()==maze1ExitPoint:
+    print("You have won!")
+  # else:
+  #   print("Still going") #Creates an error
 """
 #Movement functions in turtle
 player.position() #shorthand:.pos
