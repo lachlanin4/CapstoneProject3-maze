@@ -1,4 +1,5 @@
 import turtle as t
+from turtle import Screen
 
 t.Turtle().screen.title('Turtle Escape')
 t.Turtle().screen.bgcolor('#add8e6')
@@ -9,6 +10,7 @@ t.Turtle().color('#add8e6')
 maze_turtle = t.Turtle()
 maze_turtle.pensize(4)
 maze_turtle.color('blue')
+maze_turtle.pen(speed=10)
 
 #The below maze is a 180x180 maze with pathways of 30 width
 #Creates a square, basic outline of maze
@@ -63,9 +65,33 @@ maze_turtle.ht() #hiding the turtle that drew it
 player = t.Turtle()
 player.color('pink')
 player.shape('turtle')
-player.fd(30)
+player.up()
 player.goto(15,0)
-player.left(90)
+player.seth(90)
+player.down()
+
+def playerUp():
+  player.seth(90)
+  player.fd(30)
+
+def playerDown():
+  player.seth(270)
+  player.fd(30)
+
+def playerLeft():
+  player.seth(180)
+  player.fd(30)
+
+def playerRight():
+  player.seth(0)
+  player.fd(30)
+
+Screen().onkey(playerUp,'Up')
+Screen().onkey(playerLeft,'Left')
+Screen().onkey(playerRight,'Right')
+Screen().onkey(playerDown,'Down')
+Screen().listen()
+
 
 
 
