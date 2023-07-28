@@ -1,6 +1,7 @@
 import turtle as t
 from turtle import Screen
 import time
+from random import randint
 
 t.Turtle().screen.title('Turtle Escape')
 t.Turtle().screen.bgcolor('#add8e6')
@@ -8,19 +9,27 @@ t.Turtle().hideturtle() #for some reason this does not hide the original turtle 
 t.Turtle().color('#add8e6')
 
 class Maze(t.Turtle):
-  def __init__(self,turtle):
+  def __init__(self):
+    #super().__init__(self) #made things not work
     self.width = None
     self.height = None
-    self.drawer = turtle
-
+    self.drawer = maze_turtle
+    #self.drawer.color('pink')
 
   def createOutline(self,drawer):
     for i in range (4):
-      drawer.up()
-      drawer.fd(30)
       drawer.down()
-      drawer.fd(150)
+      drawer.fd(180)
       drawer.left(90)
+    drawer.color('#add8e6')
+    drawer.seth(0)
+    drawer.fd(30)
+    drawer.up()
+    drawer.goto(180.00,180.00)
+    drawer.down()
+    drawer.seth(180)
+    drawer.fd(30)
+    drawer.color('blue')
 
   def drawLeft(self,drawer):
     drawer.down()
@@ -47,6 +56,45 @@ class Maze(t.Turtle):
     drawer.seth(angle)
     drawer.fd(30)
     drawer.down()
+
+def randomGenerator(drawer):
+    drawer.up()
+    drawer.goto(0.00,30.00)
+    while drawer.position() != (0.00,180.00) or drawer.position() != (180.00,180.00):
+      for i in range (3):
+        if drawer.position() == (0.00,180.00) or drawer.position() == (180.00,180.00):
+          break
+        for i in range (6):
+          decider = randint(1,2)
+          if decider == 1:
+            maze1.drawRight(drawer)
+          else:
+            maze1.skipLine(drawer,0)
+        if drawer.position() == (0.00,180.00) or drawer.position() == (180.00,180.00):
+          break
+        maze1.drawUp(drawer)
+        for i in range (6):
+          decider = randint(1,2)
+          if decider == 1:
+            maze1.drawLeft(drawer)
+          else:
+            maze1.skipLine(drawer,180)
+        #maze1.drawUp(drawer)
+        if drawer.position() == (0.00,180.00) or drawer.position() == (180.00,180.00):
+          break
+        maze1.drawUp(drawer)
+      break
+    drawer.color('#add8e6')
+    drawer.up()
+    drawer.goto(180.00,180.00)
+    drawer.down()
+    drawer.seth(180)
+    drawer.fd(30)
+    drawer.color('blue')
+    
+        
+  
+      
          
 #turtle that will draw maze
 maze_turtle = t.Turtle()
@@ -62,20 +110,21 @@ maze_turtle.pen(speed=10)
 #   maze_turtle.down()
 #   maze_turtle.fd(150)
 #   maze_turtle.left(90)
-maze1 = Maze(maze_turtle)
+maze1 = Maze()
 maze1.createOutline(maze_turtle)
+randomGenerator(maze_turtle)
 
 #in this mode the angles are 0 - east, 90 - north, 180-west,270-south
 
 #drawing a maze
-maze_turtle.up()
-maze_turtle.goto(30,0);maze1.drawUp(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.skipLine(maze_turtle,0)
-maze1.drawDown(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawUp(maze_turtle);maze1.drawUp(maze_turtle)
-maze1.drawLeft(maze_turtle);maze1.skipLine(maze_turtle,180);maze1.drawUp(maze_turtle);maze1.drawRight(maze_turtle)
-maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.skipLine(maze_turtle,0);maze1.drawUp(maze_turtle)
-maze1.skipLine(maze_turtle,180);maze1.skipLine(maze_turtle,180);maze1.drawUp(maze_turtle)
-maze1.drawUp(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.skipLine(maze_turtle,0)
-maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle)
+# maze_turtle.up()
+# maze_turtle.goto(30,0);maze1.drawUp(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.skipLine(maze_turtle,0)
+# maze1.drawDown(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawUp(maze_turtle);maze1.drawUp(maze_turtle)
+# maze1.drawLeft(maze_turtle);maze1.skipLine(maze_turtle,180);maze1.drawUp(maze_turtle);maze1.drawRight(maze_turtle)
+# maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.skipLine(maze_turtle,0);maze1.drawUp(maze_turtle)
+# maze1.skipLine(maze_turtle,180);maze1.skipLine(maze_turtle,180);maze1.drawUp(maze_turtle)
+# maze1.drawUp(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle);maze1.skipLine(maze_turtle,0)
+# maze1.drawRight(maze_turtle);maze1.drawRight(maze_turtle)
 
 maze_turtle.ht() #hiding the turtle that drew it
 
@@ -89,28 +138,28 @@ def playerUp():
   player.fd(15)
   if player.position()==maze1ExitPoint:
     print("You have won!")
-  time.sleep(0.5)
+  time.sleep(0.1)
 
 def playerDown():
   player.seth(270)
   player.fd(15)
   if player.position()==maze1ExitPoint:
     print("You have won!")
-  time.sleep(0.5)
+  time.sleep(0.1)
 
 def playerLeft():
   player.seth(180)
   player.fd(15)
   if player.position()==maze1ExitPoint:
     print("You have won!")
-  time.sleep(0.5)
+  time.sleep(0.1)
 
 def playerRight():
   player.seth(0)
   player.fd(15)
   if player.position()==maze1ExitPoint:
     print("You have won!")
-  time.sleep(0.5)
+  time.sleep(0.1)
 
 Screen().onkey(playerUp,'Up')
 Screen().onkey(playerLeft,'Left')
