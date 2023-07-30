@@ -12,6 +12,7 @@ from pygame.locals import (
     QUIT,
 )
 pygame.init()
+
 class Maze:
     #considering putting some attributes here if they can be shared by all the instances/mazes
     #start_position=(0,0)
@@ -23,6 +24,15 @@ class Maze:
         self.exit_position = None
         self.layout = None
 
+        #method to generate maze
+
+        #method to display maze
+
+        #method to check player has react exit
+    def player_reached_exit(self):
+        #if
+        pass
+
 PINK = (255,192,203)   
 SCREEN_WIDTH=800
 SCREEN_HEIGHT=600
@@ -32,8 +42,8 @@ screen.fill((133,123,200)) #Fill the screen first because it will fill over ever
 
 PLAYER_X =50
 PLAYER_Y=50
-PLAYER_HEIGHT = 50
-PLAYER_WIDTH= 50
+PLAYER_HEIGHT = 40
+PLAYER_WIDTH= 40
 
 pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
 
@@ -48,10 +58,13 @@ while running:
     for event in pygame.event.get():
         if event.type ==KEYDOWN:
             if event.key ==K_UP:
-                print("UP")
-                #t1Rect.move_ip(0,-5)
-                #pygame.display.update()
                 PLAYER_Y -= 10
+            if event.key ==K_DOWN:
+                PLAYER_Y +=10
+            if event.key ==K_RIGHT:
+                PLAYER_X +=10
+            if event.key ==K_LEFT:
+                PLAYER_X -=10
             if event.key==K_ESCAPE:
                 running=False
         elif event.type==QUIT:
@@ -60,3 +73,8 @@ while running:
     screen.fill((133,123,200))
     pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
     pygame.display.update()
+    # if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
+    #     print("You have lost")
+    #     player.kill()
+    #     print("RIP")
+    #     running=False

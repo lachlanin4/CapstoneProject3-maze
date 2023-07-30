@@ -4,3 +4,5 @@
 #process user input for player movement and update player's position accordingly. so the methods for moving up down and right etc will be in this class
 #check for collison with wall or if reached exit displaying appropriate messages
 #provide option to play again or quit
+class Game_Engine:
+    pass
