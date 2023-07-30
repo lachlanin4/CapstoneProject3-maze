@@ -14,16 +14,25 @@ from pygame.locals import (
     QUIT,
 )
 
+#Define constansts for screen width and heihgt, not sure why I need to do this
+SCREEN_WIDTH=800
+SCREEN_HEIGHT=600
+
 #initlaise pygame
 pygame.init()
 
 class Player(pygame.sprite.Sprite): #Player is the child class of pygame.sprite.Sprite() class so it inherits all the attributes and methods
     def __init__ (self):
-        super(Player, self).__init__()
+        #super(Player, self).__init__() #This way of calling super() function is for older versions of python
+        super().__init__() #calls init method of sprite
+        self.surf=pygame.Surface((75,25)) #The surface that will be drawn on screen is an attribute of 'player
+        self.surf.fill((255,255,255)) #Made it black
+        self.rect=self.surf.get_rect() #This is defining and initlasing .rect which will be used to draw the player later on
 
-#Define constansts for screen width and heihgt, not sure why I need to do this
-SCREEN_WIDTH=800
-SCREEN_HEIGHT=600
+#Instantiate player
+player=Player()
+
+
 
 #Create screen object
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT)) #This returns a surface with the specified dimensions, it will be the inside of the window and the OS controls the borders and title bar
@@ -32,13 +41,16 @@ screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT)) #This returns a sur
 #Asurface is a rectangular object on which you can draw
 
 #make screen white
-screen.fill((255,255,255))
+screen.fill((0,0,0))
 
 #create a surface, passing in width and length
 surf = pygame.Surface((50,50))
 
+""""""
+#Not using this line of code anymore
 #give surf colour to differentiate from screen
-surf.fill((0,0,0)) #filled with black
+#surf.fill((0,0,0)) #filled with white
+""""""
 rect=surf.get_rect() #access underlying Rect using .get_rect and this is stored for later
 
 #Need to use .blit() or .flip() to see what you have drawn on screen
@@ -46,7 +58,7 @@ rect=surf.get_rect() #access underlying Rect using .get_rect and this is stored 
 #you can only user blit from one surface to another
 
 #Draw surf onto screen with blit
-#surface to draw onto.blit(surface to be add),(x,y)
+#surface to draw onto.blit(surface to be drawn on),(x,y)
 #putting the coordinates as half of screens dimensions attempts to center the blit
 #but it won't s the coordinates will be the top left corner of the rectangle
 #screen.blit(surf,(SCREEN_WIDTH/2,SCREEN_HEIGHT/2))
@@ -56,6 +68,8 @@ surf_center = (
 )
 #centered it properly with the above maths
 screen.blit(surf, surf_center)
+screen.blit(player.surf,(SCREEN_WIDTH/2,SCREEN_HEIGHT/2))
+#screen.blit(player.surf,player.rect) #When you blit onto the player.rect it puts it a the top left corner of the display
 #.flip updates the display with everything that's been drawn since last flip()
 pygame.display.flip()
 
