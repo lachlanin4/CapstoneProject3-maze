@@ -23,29 +23,29 @@ SCREEN_HEIGHT=600
 #initlaise pygame
 pygame.init()
 
-class Player(pygame.sprite.Sprite): #Player is the child class of pygame.sprite.Sprite() class so it inherits all the attributes and methods
-    def __init__ (self):
-        #super(Player, self).__init__() #This way of calling super() function is for older versions of python
-        super().__init__() #calls init method of sprite
-        #self.surf=pygame.Surface((75,25)) #The surface that will be drawn on screen is an attribute of 'player
-        #self.surf.fill((155,255,255)) #Made it black
-        #self.rect=self.surf.get_rect() #This is defining and initlasing .rect which will be used to draw the player later on
+# class Player(pygame.sprite.Sprite): #Player is the child class of pygame.sprite.Sprite() class so it inherits all the attributes and methods
+#     def __init__ (self):
+#         #super(Player, self).__init__() #This way of calling super() function is for older versions of python
+#         super().__init__() #calls init method of sprite
+#         #self.surf=pygame.Surface((75,25)) #The surface that will be drawn on screen is an attribute of 'player
+#         #self.surf.fill((155,255,255)) #Made it black
+#         #self.rect=self.surf.get_rect() #This is defining and initlasing .rect which will be used to draw the player later on
 
-    #Moves sprite based on arrow keys pressed
-    #move_ip stands for move in place
-    def update(self):
-        if event.key==K_UP:
-            player.rect.top +=5
-            print("Up")
-        if event.key==K_DOWN:
-            player.rect.move_ip(0,5)
-        if event.key==K_LEFT:
-            player.rect.move_ip(-5,0)
-        if event.key==K_RIGHT:
-            player.rect.move(5,0)
+#     #Moves sprite based on arrow keys pressed
+#     #move_ip stands for move in place
+#     def update(self):
+#         if event.key==K_UP:
+#             player.rect.top +=5
+#             print("Up")
+#         if event.key==K_DOWN:
+#             player.rect.move_ip(0,5)
+#         if event.key==K_LEFT:
+#             player.rect.move_ip(-5,0)
+#         if event.key==K_RIGHT:
+#             player.rect.move(5,0)
 
 #Instantiate player
-player=Player()
+#player=Player()
 
 
 

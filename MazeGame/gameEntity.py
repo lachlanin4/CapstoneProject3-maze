@@ -4,6 +4,7 @@
 #Wall needs to block the players path and not let them move through it
 #Exit needs to tell the player that they have won
 import pygame
+
 ORCHID = (218,112,214) #A colour
 
 class Game_Entity(pygame.sprite.Sprite):
@@ -29,20 +30,21 @@ class Player(Game_Entity):
 
 class Wall(Game_Entity):
      #Block player's path
-    def __init__(self):
+    def __init__(self,x,y,width,height):
         super().__init__()
-        self.x = None
-        self.y = None
-        self.width = None
-        self.height = None
-        self.wall = pygame.draw.rect(screen,ORCHID,(self.x,self.y,self.width,self.height)) #should this be a method instead?
+        self.x = x #Shouldn't need this should use the xy from the Game_Entity class
+        self.y = y
+        self.width = width
+        self.height = height
+        #self.wall = pygame.draw.rect(screen,ORCHID,(self.x,self.y,self.width,self.height)) #should this be a method instead?
         self.walls_group = pygame.sprite.Group()
 
-    def add_wall_to_groups(self):
-        self.walls_group.add(self.wall)
-        self.all_entities_group.add(self.wall)
-        #ADDWALL =pygame.USEREVENT +1 #Pygame internally defines events as integers and the last one is USERVENT, so +1 to that will make the event number unique
 
+    def add_wall(self):
+        new_wall = pygame.draw.rect(screen,ORCHID,(self.x,self.y,self.width,self.height))
+        self.walls_group.add(new_wall) #To make sure this gets drawn on do I need to display.update()?
+        self.all_entities_group.add(new_wall)
+        #ADDWALL =pygame.USEREVENT +1 #Pygame internally defines events as integers and the last one is USERVENT, so +1 to that will make the event number unique
 
     #Add methods to add vertical walls and horizontal walls
         pass
@@ -62,15 +64,15 @@ class Exit(Game_Entity):
 
 # Create a custom event for adding a new enemy
 #pygame defines events internally as integers, so you need to define a new event with a unique integer. The last event pygame reserves is called USEREVENT, so defining ADDENEMY = pygame.USEREVENT + 1
-ADDWALL = pygame.USEREVENT + 1
-pygame.time.set_timer(ADDENEMY, 250)
+# ADDWALL = pygame.USEREVENT + 1
+# pygame.time.set_timer(ADDENEMY, 250)
 
 # Add a new enemy?
-        elif event.type == ADDWALL:
-            # Create the new enemy and add it to sprite groups
-            new_enemy = Enemy()
-            enemies.add(new_enemy)
-            all_sprites.add(new_enemy)
+        # elif event.type == ADDWALL:
+        #     # Create the new enemy and add it to sprite groups
+        #     new_enemy = Enemy()
+        #     enemies.add(new_enemy)
+        #     all_sprites.add(new_enemy)
 
 # Check if any enemies have collided with the player
 if pygame.sprite.spritecollideany(player, walls):
