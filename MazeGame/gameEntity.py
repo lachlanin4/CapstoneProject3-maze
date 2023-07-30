@@ -4,6 +4,7 @@
 #Wall needs to block the players path and not let them move through it
 #Exit needs to tell the player that they have won
 import pygame
+ORCHID = (218,112,214) #A colour
 
 class Game_Entity(pygame.sprite.Sprite):
     #entity_group =pygame.sprite.Group()
@@ -14,7 +15,12 @@ class Game_Entity(pygame.sprite.Sprite):
         self.symbol=None ######Need to add this one
         self.all_entities_group =pygame.sprite.Group()
     def add_new_entity(self,entity):
-        self.entity_group.add(entity)
+        self.all_entities_group.add(entity)
+    
+    def draw_entities(self):
+         for entity in self.all_entities_group:
+              #screen.blit(entity.surf,entity.rect) #if this doesn't work try draw.rects
+              pass
              
 
 class Player(Game_Entity):
@@ -23,12 +29,23 @@ class Player(Game_Entity):
 
 class Wall(Game_Entity):
      #Block player's path
-     def __init__(self):
-          super().__init__()
-          self.walls_group = pygame.sprite.Group()
+    def __init__(self):
+        super().__init__()
+        self.x = None
+        self.y = None
+        self.width = None
+        self.height = None
+        self.wall = pygame.draw.rect(screen,ORCHID,(self.x,self.y,self.width,self.height)) #should this be a method instead?
+        self.walls_group = pygame.sprite.Group()
+
+    def add_wall_to_groups(self):
+        self.walls_group.add(self.wall)
+        self.all_entities_group.add(self.wall)
+        #ADDWALL =pygame.USEREVENT +1 #Pygame internally defines events as integers and the last one is USERVENT, so +1 to that will make the event number unique
+
 
     #Add methods to add vertical walls and horizontal walls
-     pass
+        pass
 
 class Exit(Game_Entity):
      #Tell player they have won

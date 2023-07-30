@@ -21,7 +21,7 @@ class Maze:
         self.width = width #instance attributes
         self.height = height
         self.start_position = None
-        self.exit_position = None
+        self.exit_position = None #need to make exit sprite a rect
         self.layout = None
 
         #method to generate maze
@@ -29,8 +29,10 @@ class Maze:
         #method to display maze
 
         #method to check player has react exit
-    def player_reached_exit(self):
-        #if
+    def player_reached_exit(self,playerRect,exitRect):
+        # if pygame.sprite.collide_rect(playerRect,exitRect):
+        #     print("You have won!")
+        #     print("Do you want to quit or play again?")
         pass
 
 PINK = (255,192,203)   
@@ -72,9 +74,20 @@ while running:
     
     screen.fill((133,123,200))
     pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
+    #Keep player on screen
+    # if player.rect.left < 0:
+    #     player.rect.left = 0
+    # if player.rect.right > SCREEN_WIDTH:
+    #     player.rect.right = SCREEN_WIDTH
+    # if player.rect.top <= 0:
+    #     player.rect.top = 0
+    # if player.rect.bottom >= SCREEN_HEIGHT:
+    #     player.rect.bottom = SCREEN_HEIGHT
     pygame.display.update()
     # if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
     #     print("You have lost")
     #     player.kill()
     #     print("RIP")
     #     running=False
+    
+
