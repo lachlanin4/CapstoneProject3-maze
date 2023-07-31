@@ -4,6 +4,7 @@
 #Wall needs to block the players path and not let them move through it
 #Exit needs to tell the player that they have won
 import pygame
+pygame.init()
 #from gameEngine import screen
 
 PINK = (255,192,203)   
@@ -15,6 +16,10 @@ SCREEN_HEIGHT=600
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 screen.fill((133,123,200)) #Fill the screen first because it will fill over everything else
 
+#maze class needs to have attributes of width, height, maze layout, start and exit position
+#needs to have methods to generate and display the maze and check if player has reached exit
+
+all_entities_group =pygame.sprite.Group()
 
 class Game_Entity(pygame.sprite.Sprite):
     #entity_group =pygame.sprite.Group()
@@ -24,9 +29,9 @@ class Game_Entity(pygame.sprite.Sprite):
         self.x=None
         self.y=None
         self.symbol=None ######Need to add this one
-        self.all_entities_group =pygame.sprite.Group()
-    def add_new_entity(self,entity):
-        self.all_entities_group.add(entity)
+        #self.all_entities_group =pygame.sprite.Group()
+    def add_new_entity(self):
+        all_entities_group.add(self)
     
     def draw_entities(self): #This would be useful if there was more entites than walls such as locked doors n stuff but as it's just a maze so far only display maze function would really be necessary and that would be in maze class
          for entity in self.all_entities_group:
@@ -42,12 +47,18 @@ class Player(Game_Entity):
         self.y = y
         self.width = width
         self.height= height
+        self.surf = pygame.Surface((self.width,self.height))
+        self.rect = self.surf.get_rect(topleft=(self.x,self.y))
 
     def draw_player(self):
-        pygame.draw.rect(screen,PINK,(self.x,self.y,self.width,self.height))
+        #pygame.draw.rect(screen,PINK,(self.x,self.y,self.width,self.height))
+        #print(self.y)
+        self.rect=self.surf.get_rect(topleft=(self.x,self.y))
+        screen.blit(self.surf, self.rect)
+
     
 
-
+walls_group = pygame.sprite.Group()
 
 class Wall(Game_Entity):
      #Block player's path
@@ -57,18 +68,21 @@ class Wall(Game_Entity):
         self.y = y
         self.width = width
         self.height = height
+        self.surf = pygame.Surface((self.width,self.height))
+        self.rect = self.surf.get_rect(topleft=(self.x,self.y))
         #self.wall = pygame.draw.rect(screen,ORCHID,(self.x,self.y,self.width,self.height)) #should this be a method instead?
-        self.walls_group = pygame.sprite.Group()
+        #self.walls_group = pygame.sprite.Group()
 
 
     def add_wall(self):
         #new_wall = pygame.draw.rect(screen,ORCHID,(self.x,self.y,self.width,self.height))
         #new_wall
-        new_wall=pygame.Surface((self.width,self.height))
+        #new_wall=pygame.Surface((self.width,self.height))
 
-        screen.blit(new_wall, new_wall.get_rect(topleft=(self.x,self.y)))
-        #self.walls_group.add(new_wall) #To make sure this gets drawn on do I need to display.update()?
-        #Game_Entity.add_new_entity(new_wall)
+        screen.blit(self.surf, self.rect)
+        walls_group.add(self) #Does self in parameters add this Wall() to sprite group
+        #To make sure this gets drawn on do I need to display.update()?
+        Game_Entity.add_new_entity(self) #Does this add to game entites?
         #ADDWALL =pygame.USEREVENT +1 #Pygame internally defines events as integers and the last one is USERVENT, so +1 to that will make the event number unique
 
     #Add methods to add vertical walls and horizontal walls
@@ -79,7 +93,28 @@ class Exit(Game_Entity):
      #Add method to tell player they have won - when their sprites collide player has won
      pass
 
+class Maze(Wall):
+    #considering putting some attributes here if they can be shared by all the instances/mazes
+    #start_position=(0,0)
+    #exit_position=(end,end)
+    def __init__(self,width,height):
+        self.width = width #instance attributes
+        self.height = height
+        self.start_position = None
+        self.exit_position = None #need to make exit sprite a rect
+        self.layout = None
 
+        #method to generate maze
+
+        #method to display maze
+        #This will be lots of Wall(x,y,width,height).add_wall() instances
+
+        #method to check player has react exit
+    def player_reached_exit(self,playerRect,exitRect):
+        # if pygame.sprite.collide_rect(playerRect,exitRect):
+        #     print("You have won!")
+        #     print("Do you want to quit or play again?")
+        pass
 
 
 

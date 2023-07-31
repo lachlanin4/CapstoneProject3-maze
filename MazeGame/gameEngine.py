@@ -16,7 +16,7 @@ from pygame.locals import (
     QUIT,
 )
 
-from gameEntity import Game_Entity, Player, Wall,Exit
+from gameEntity import Game_Entity, Player, Wall,Exit, all_entities_group, walls_group
 
 class Game_Engine:
     pass
@@ -34,29 +34,30 @@ PLAYER_Y=550
 PLAYER_HEIGHT = 40
 PLAYER_WIDTH= 40
 
+player = Player(PLAYER_X,PLAYER_Y,40,40)
 
 running =True
 while running:
     for event in pygame.event.get():
         if event.type ==KEYDOWN:
             if event.key ==K_UP:
-                PLAYER_Y -= 10
+                player.y -= 10
             if event.key ==K_DOWN:
-                PLAYER_Y +=10
+                player.y +=10
             if event.key ==K_RIGHT:
-                PLAYER_X +=10
+                player.x +=10
             if event.key ==K_LEFT:
-                PLAYER_X -=10
+                player.x -=10
             if event.key==K_ESCAPE:
                 running=False
         elif event.type==QUIT:
             running =False
     
     screen.fill((133,123,200))
-    Player(PLAYER_X,PLAYER_Y,40,40).draw_player()
+    player.draw_player()
     #pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
     #pygame.draw.rect(screen,PINK,(70,70,80,10))
-    Wall(70,70,80,10).add_wall() #Need to put this into maze class somehow
+    Wall(70,70,700,10).add_wall() #Need to put this into maze class somehow
     #Game_Entity.draw_entities()
     #Keep player on screen
     # if Player(PLAYER_X,PLAYER_Y,40,40).draw_player().left < 0: #get this working with the stuff we've got now
@@ -68,8 +69,8 @@ while running:
     # if player.rect.bottom >= SCREEN_HEIGHT:
     #     player.rect.bottom = SCREEN_HEIGHT
     pygame.display.update()
-    # if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
-    #     print("You have lost")
-    #     player.kill()
-    #     print("RIP")
-    #     running=False
+    if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
+        print("You have lost")
+        player.kill()
+        print("RIP")
+        running=False
