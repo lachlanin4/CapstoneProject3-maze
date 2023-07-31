@@ -29,19 +29,11 @@ SCREEN_HEIGHT=600
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 screen.fill((133,123,200)) #Fill the screen first because it will fill over everything else
 
-PLAYER_X =50
-PLAYER_Y=50
+PLAYER_X =750
+PLAYER_Y=550
 PLAYER_HEIGHT = 40
 PLAYER_WIDTH= 40
 
-pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
-#wall1=Wall(70,70,80,10)
-
-
-# t1= pygame.Surface((50,50)) #Wanted to use this method with t1Rect.move_ip(x,y) but I could not get it working at all
-# t1Rect=t1.get_rect()
-# screen.blit(t1,t1Rect)
-# pygame.display.flip()
 
 running =True
 while running:
@@ -61,12 +53,13 @@ while running:
             running =False
     
     screen.fill((133,123,200))
-    pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
+    Player(PLAYER_X,PLAYER_Y,40,40).draw_player()
+    #pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
     #pygame.draw.rect(screen,PINK,(70,70,80,10))
     Wall(70,70,80,10).add_wall() #Need to put this into maze class somehow
     #Game_Entity.draw_entities()
     #Keep player on screen
-    # if player.rect.left < 0:
+    # if Player(PLAYER_X,PLAYER_Y,40,40).draw_player().left < 0: #get this working with the stuff we've got now
     #     player.rect.left = 0
     # if player.rect.right > SCREEN_WIDTH:
     #     player.rect.right = SCREEN_WIDTH

@@ -6,6 +6,7 @@
 import pygame
 #from gameEngine import screen
 
+PINK = (255,192,203)   
 ORCHID = (218,112,214) #A colour
 
 SCREEN_WIDTH=800
@@ -19,6 +20,7 @@ class Game_Entity(pygame.sprite.Sprite):
     #entity_group =pygame.sprite.Group()
     def __init__(self):
         super().__init__()
+        #Maybe add self.surf =pygame.Surface(width,height) to create everything as sprites
         self.x=None
         self.y=None
         self.symbol=None ######Need to add this one
@@ -41,7 +43,8 @@ class Player(Game_Entity):
         self.width = width
         self.height= height
 
-    def draw_player
+    def draw_player(self):
+        pygame.draw.rect(screen,PINK,(self.x,self.y,self.width,self.height))
     
 
 

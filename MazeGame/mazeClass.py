@@ -18,6 +18,7 @@ class Maze:
         #method to generate maze
 
         #method to display maze
+        #This will be lots of Wall(x,y,width,height).add_wall() instances
 
         #method to check player has react exit
     def player_reached_exit(self,playerRect,exitRect):
