@@ -16,7 +16,7 @@ from pygame.locals import (
     QUIT,
 )
 
-#from gameEntity import Game_Entity, Player, Wall,Exit
+from gameEntity import Game_Entity, Player, Wall,Exit
 
 class Game_Engine:
     pass
@@ -35,6 +35,7 @@ PLAYER_HEIGHT = 40
 PLAYER_WIDTH= 40
 
 pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
+#wall1=Wall(70,70,80,10)
 
 
 # t1= pygame.Surface((50,50)) #Wanted to use this method with t1Rect.move_ip(x,y) but I could not get it working at all
@@ -61,6 +62,9 @@ while running:
     
     screen.fill((133,123,200))
     pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
+    #pygame.draw.rect(screen,PINK,(70,70,80,10))
+    Wall(70,70,80,10).add_wall() #Need to put this into maze class somehow
+    #Game_Entity.draw_entities()
     #Keep player on screen
     # if player.rect.left < 0:
     #     player.rect.left = 0

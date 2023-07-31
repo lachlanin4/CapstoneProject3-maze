@@ -4,8 +4,16 @@
 #Wall needs to block the players path and not let them move through it
 #Exit needs to tell the player that they have won
 import pygame
+#from gameEngine import screen
 
 ORCHID = (218,112,214) #A colour
+
+SCREEN_WIDTH=800
+SCREEN_HEIGHT=600
+
+screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+screen.fill((133,123,200)) #Fill the screen first because it will fill over everything else
+
 
 class Game_Entity(pygame.sprite.Sprite):
     #entity_group =pygame.sprite.Group()
@@ -18,15 +26,25 @@ class Game_Entity(pygame.sprite.Sprite):
     def add_new_entity(self,entity):
         self.all_entities_group.add(entity)
     
-    def draw_entities(self):
+    def draw_entities(self): #This would be useful if there was more entites than walls such as locked doors n stuff but as it's just a maze so far only display maze function would really be necessary and that would be in maze class
          for entity in self.all_entities_group:
-              #screen.blit(entity.surf,entity.rect) #if this doesn't work try draw.rects
+              screen.blit(entity.surf,entity.rect) #if this doesn't work try draw.rects
               pass
              
 
 class Player(Game_Entity):
      #allow movement and track where player is
-     pass
+    def __init__(self,x,y,width,height):
+        super().__init__()
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height= height
+
+    def draw_player
+    
+
+
 
 class Wall(Game_Entity):
      #Block player's path
@@ -41,18 +59,38 @@ class Wall(Game_Entity):
 
 
     def add_wall(self):
-        new_wall = pygame.draw.rect(screen,ORCHID,(self.x,self.y,self.width,self.height))
-        self.walls_group.add(new_wall) #To make sure this gets drawn on do I need to display.update()?
-        self.all_entities_group.add(new_wall)
+        #new_wall = pygame.draw.rect(screen,ORCHID,(self.x,self.y,self.width,self.height))
+        #new_wall
+        new_wall=pygame.Surface((self.width,self.height))
+
+        screen.blit(new_wall, new_wall.get_rect(topleft=(self.x,self.y)))
+        #self.walls_group.add(new_wall) #To make sure this gets drawn on do I need to display.update()?
+        #Game_Entity.add_new_entity(new_wall)
         #ADDWALL =pygame.USEREVENT +1 #Pygame internally defines events as integers and the last one is USERVENT, so +1 to that will make the event number unique
 
     #Add methods to add vertical walls and horizontal walls
-        pass
+        
 
 class Exit(Game_Entity):
      #Tell player they have won
      #Add method to tell player they have won - when their sprites collide player has won
      pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #player=Player()
 
 # Create groups to hold enemy sprites and all sprites
@@ -75,15 +113,15 @@ class Exit(Game_Entity):
         #     all_sprites.add(new_enemy)
 
 # Check if any enemies have collided with the player
-if pygame.sprite.spritecollideany(player, walls):
-    # If so, then remove the player and stop the loop
-    player.kill()
-    running = False
-#spritecollideany checks if the rects of the two parameters have intersected so has the player sprite intersected with anything in the walls spritegroup?
+# if pygame.sprite.spritecollideany(player, walls):
+#     # If so, then remove the player and stop the loop
+#     player.kill()
+#     running = False
+# #spritecollideany checks if the rects of the two parameters have intersected so has the player sprite intersected with anything in the walls spritegroup?
 
-#When you call kill() you a remmove a sprite from every group it is in and removes references to the sprite as well
-#draw all sprites:
-for entity in all_sprites:
-    screen.blit(entity.sruf,entity.rect)
+# #When you call kill() you a remmove a sprite from every group it is in and removes references to the sprite as well
+# #draw all sprites:
+# for entity in all_sprites:
+#     screen.blit(entity.sruf,entity.rect)
 
-pygame.display.flip()
+# pygame.display.flip()
