@@ -100,6 +100,19 @@ class Game_Engine:
         screen.blit(text2, text2Rect)
         pygame.display.flip()
         time.sleep(0.5)
+    
+    def welcome_text(self):
+        text = myfont.render(('Welcome to the maze game!'), True, PINK, ORCHID)
+        textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+        screen.blit(text, textRect)
+        text1 = myfont.render('Press Y to play', True, PINK, ORCHID)
+        text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+        screen.blit(text1, text1Rect)
+        text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+        text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+        screen.blit(text2, text2Rect)
+        pygame.display.flip()
+        time.sleep(0.5)
 
     def collide_wall_check(self):
         if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
@@ -118,6 +131,7 @@ class Game_Engine:
                     running=False
 
     def next_levels(self):
+        running=True
         if pygame.sprite.spritecollideany(player,exit_group):
             Game_Engine().beat_level_text()
             for event in pygame.event.get():
@@ -203,7 +217,7 @@ SCREEN_HEIGHT=600
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 screen.fill((133,123,200)) #Fill the screen first because it will fill over everything else
 
-PLAYER_X =700
+PLAYER_X =690
 PLAYER_Y=550
 PLAYER_HEIGHT = 40
 PLAYER_WIDTH= 40
@@ -218,111 +232,48 @@ pressed_button = False
 
 running =True
 while running:
-    Game_Engine().handling_user_input()
-    
-    screen.fill((133,123,200))
-    player.draw_player()
-    Exit(SCREEN_WIDTH-50,SCREEN_HEIGHT-130,40,40).add_exit()
-    Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze1()
-    Button(750,SCREEN_HEIGHT-30,20,20).add_button()
-    Locked_Door(0,540,60,10).add_locked_door()
-    Locked_Door(500,SCREEN_HEIGHT-60,10,60).add_locked_door()
-
-    pygame.display.update()
-    Game_Engine().collide_wall_check()
-    if pygame.sprite.spritecollideany(player,exit_group):
-        Game_Engine().beat_level_text()
-        for event in pygame.event.get():
-            if event.type==KEYDOWN:
-                if event.key == K_y:
-                    #load maze 2
-                    for sprite in walls_group:
-                        sprite.kill()
-                    for sprite in exit_group:
-                        sprite.kill()
-                    player.moves=0
-                    pressed_button=False
+    Game_Engine().welcome_text()
+    for event in pygame.event.get():
+        if event.type==KEYDOWN:
+            if event.key == K_y:
+                while running:
+                    Game_Engine().handling_user_input()
+                    
                     screen.fill((133,123,200))
-                    player.y=PLAYER_Y
-                    player.x=PLAYER_X
+                    player.draw_player()
+                    Exit(SCREEN_WIDTH-50,SCREEN_HEIGHT-130,40,40).add_exit()
+                    Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze1()
+                    Button(750,SCREEN_HEIGHT-30,20,20).add_button()
+                    Locked_Door(0,540,60,10).add_locked_door()
+                    Locked_Door(500,SCREEN_HEIGHT-60,10,60).add_locked_door()
+
                     pygame.display.update()
-                    while running:      
-                        Game_Engine().handling_user_input()
-                        screen.fill((152, 222, 222))
-                        player.draw_player()
-                        Exit(SCREEN_WIDTH-300,300,40,40).add_exit()
-                        Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze2()
-                        pygame.display.update()
-                        Game_Engine().collide_wall_check()
-                        #If player reaches exit provide option to play again or exit, if play again by pressing y key loads next level
-                        if pygame.sprite.spritecollideany(player,exit_group):
-                            Game_Engine().beat_level_text()
+                    Game_Engine().collide_wall_check()
+                    Game_Engine().next_levels()
+                    if pygame.sprite.spritecollideany(player,button_group):
+                        pressed_button =True
+                        
+                    if pygame.sprite.spritecollideany(player,locked_door_group):
+                        if pressed_button==True:
+                            pass
+                        elif pressed_button==False:
+                            player.kill()
+                            #Rendering text if you lose
+                            Game_Engine().hit_locked_door_text()
+                            player.moves=0
                             for event in pygame.event.get():
                                 if event.type==KEYDOWN:
                                     if event.key == K_y:
-                                        #load maze 3
-                                        for sprite in walls_group:
-                                            sprite.kill()
-                                        for sprite in exit_group:
-                                            sprite.kill()
-                                        player.moves=0
-                                        screen.fill((23, 166, 154))
                                         player.y=550
-                                        player.x=750
-                                        pygame.display.update()
-                                        while running:
-                                            Game_Engine().handling_user_input()
-                                            screen.fill((23, 166, 154))
-                                            player.draw_player()
-                                            Exit(SCREEN_WIDTH-50,50,40,40).add_exit()
-                                            Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze3()
-                                            pygame.display.update()
-                                            Game_Engine().collide_wall_check()
-                                            if pygame.sprite.spritecollideany(player,exit_group):
-                                                Game_Engine().beat_final_level_text()
-                                                for event in pygame.event.get():
-                                                    if event.type==KEYDOWN:
-                                                        if event.key == K_y:
-                                                            #This will need to take them back to the beginning
-                                                            for sprite in walls_group:
-                                                                sprite.kill()
-                                                            for sprite in exit_group:
-                                                                sprite.kill()
-                                                            player.moves=0
-                                                            pressed_button=False
-                                                            screen.fill((23, 166, 154)) #make a parameter
-                                                            player.y=PLAYER_Y
-                                                            player.x=PLAYER_X
-                                                            pygame.display.update()
-                                                            return
-                                                        elif event.key ==K_ESCAPE:
-                                                            running=False
-                                                    elif event.type==QUIT:
-                                                        running=False
+                                        player.x=700
                                     elif event.key ==K_ESCAPE:
                                         running=False
                                 elif event.type==QUIT:
                                     running=False
-    if pygame.sprite.spritecollideany(player,button_group):
-        pressed_button =True
-        
-    if pygame.sprite.spritecollideany(player,locked_door_group):
-        if pressed_button==True:
-            pass
-        elif pressed_button==False:
-            player.kill()
-            #Rendering text if you lose
-            Game_Engine().hit_locked_door_text()
-            player.moves=0
-            for event in pygame.event.get():
-                if event.type==KEYDOWN:
-                    if event.key == K_y:
-                        player.y=550
-                        player.x=700
-                    elif event.key ==K_ESCAPE:
-                        running=False
-                elif event.type==QUIT:
-                    running=False
+            elif event.key ==K_ESCAPE:
+                running=False
+        elif event.type ==QUIT:
+            running=False
 
 
  
