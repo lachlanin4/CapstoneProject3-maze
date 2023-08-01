@@ -145,7 +145,7 @@ while running:
                                 running =False
                         screen.fill((152, 222, 222))
                         player.draw_player()
-                        Exit(SCREEN_WIDTH-50,50,40,40).add_exit()
+                        Exit(SCREEN_WIDTH-300,300,40,40).add_exit()
                         Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze2()
                         pygame.display.update()
                         if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games

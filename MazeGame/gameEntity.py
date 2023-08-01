@@ -173,6 +173,49 @@ class Maze():
         Wall(SCREEN_WIDTH-5,0,5,SCREEN_HEIGHT).add_wall()
 
         #Horizontal Walls, have a gap of 60 between their y's
+        Wall(70,SCREEN_HEIGHT-60,120,5).add_wall()
+        Wall(260,SCREEN_HEIGHT-60,200,5).add_wall()
+        Wall(500,SCREEN_HEIGHT-60,175,5).add_wall()
+        Wall(725,SCREEN_HEIGHT-60,30,5).add_wall()
+
+        Wall(0,SCREEN_HEIGHT-120,50,5).add_wall()
+        Wall(90,SCREEN_HEIGHT-120,400,5).add_wall()
+        Wall(535,SCREEN_HEIGHT-120,200,5).add_wall()
+
+        Wall(0,SCREEN_HEIGHT-180,10,5).add_wall()
+        Wall(110,SCREEN_HEIGHT-180,70,5).add_wall()
+        Wall(219,SCREEN_HEIGHT-180,83,5).add_wall()
+        Wall(340,SCREEN_HEIGHT-180,200,5).add_wall()
+        Wall(580,SCREEN_HEIGHT-180,300,5).add_wall()
+
+        Wall(45,SCREEN_HEIGHT-240,100,5).add_wall()
+        Wall(180,SCREEN_HEIGHT-240,321,5).add_wall()
+        Wall(360,SCREEN_HEIGHT-240,350,5).add_wall()
+        Wall(750,SCREEN_HEIGHT-240,100,5).add_wall()
+
+        Wall(43,SCREEN_HEIGHT-300,120,5).add_wall()
+        Wall(213,SCREEN_HEIGHT-300,291,5).add_wall()
+        Wall(541,SCREEN_HEIGHT-300,10,5).add_wall()
+        Wall(589,SCREEN_HEIGHT-300,12,5).add_wall()
+        Wall(640,SCREEN_HEIGHT-300,40,5).add_wall()
+        Wall(720,SCREEN_HEIGHT-300,10,5).add_wall()
+        Wall(768,SCREEN_HEIGHT-300,50,5).add_wall()
+
+        Wall(20,SCREEN_HEIGHT-360,100,5).add_wall()
+        Wall(159,SCREEN_HEIGHT-360,38,5).add_wall()
+        Wall(236,SCREEN_HEIGHT-360,56,5).add_wall()
+        Wall(332,SCREEN_HEIGHT-360,108,5).add_wall()
+        Wall(480,SCREEN_HEIGHT-360,10,5).add_wall()
+        Wall(530,SCREEN_HEIGHT-360,50,5).add_wall()
+        Wall(619,SCREEN_HEIGHT-360,137,5).add_wall()
+
+
+        #Vertical Walls
+        Wall(320,SCREEN_HEIGHT-120,5,60).add_wall()
+
+        Wall(450,SCREEN_HEIGHT-180,5,60).add_wall()
+
+
 
 
 
