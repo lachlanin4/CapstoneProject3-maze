@@ -77,14 +77,9 @@ class Wall(Game_Entity):
 
     def add_wall(self):
         #new_wall = pygame.draw.rect(screen,ORCHID,(self.x,self.y,self.width,self.height))
-        #new_wall
-        #new_wall=pygame.Surface((self.width,self.height))
-
         screen.blit(self.surf, self.rect)
         walls_group.add(self) #Does self in parameters add this Wall() to sprite group
-        #To make sure this gets drawn on do I need to display.update()?
         Game_Entity.add_new_entity(self) #Does this add to game entites?
-        #ADDWALL =pygame.USEREVENT +1 #Pygame internally defines events as integers and the last one is USERVENT, so +1 to that will make the event number unique
 
     #Add methods to add vertical walls and horizontal walls
         
@@ -102,15 +97,13 @@ class Exit(Game_Entity):
         self.rect = self.surf.get_rect(topleft=(self.x,self.y))
 
     def add_exit(self):
-        #self.rect=self.surf.get_rect(topleft=(self.x,self.y))
         screen.blit(self.surf, self.rect)
         exit_group.add(self)
         Game_Entity.add_new_entity(self)
 
-key_group = pygame.sprite.Group()
-class Key(Game_Entity):
-     #Tell player they have won
-     #Add method to tell player they have won - when their sprites collide player has won
+button_group = pygame.sprite.Group()
+
+class Button(Game_Entity):
     def __init__(self,x,y,width,height):
         super().__init__()
         self.x = x
@@ -118,15 +111,33 @@ class Key(Game_Entity):
         self.width=width
         self.height=height
         self.surf = pygame.Surface((self.width,self.height))
+        self.colour =(124,252,0)
+        self.surf.fill(self.colour)
         self.rect = self.surf.get_rect(topleft=(self.x,self.y))
 
-    def add_key(self):
-        #self.rect=self.surf.get_rect(topleft=(self.x,self.y))
+    def add_button(self):
         screen.blit(self.surf, self.rect)
-        key_group.add(self)
+        button_group.add(self)
         Game_Entity.add_new_entity(self)
+    
+locked_door_group = pygame.sprite.Group()
 
+class Locked_Door(Game_Entity):
+    def __init__(self,x,y,width,height):
+        super().__init__()
+        self.x = x
+        self.y=y
+        self.width=width
+        self.height=height
+        self.colour = (32,178,170)
+        self.surf = pygame.Surface((self.width,self.height))
+        self.surf.fill(self.colour)
+        self.rect = self.surf.get_rect(topleft=(self.x,self.y))
 
+    def add_locked_door(self):
+        screen.blit(self.surf, self.rect)
+        locked_door_group.add(self)
+        Game_Entity.add_new_entity(self)
 
 
 
@@ -151,7 +162,7 @@ class Maze():
 
         #Horizontal Wall
         Wall(60,540,760,5).add_wall()
-        Wall(0,540-60,600,5).add_wall()
+        Wall(0,540-60,700,5).add_wall()
         #Wall()
     def add_maze2(self):
         #Generate maze outline
@@ -234,12 +245,6 @@ class Maze():
         Wall(320,SCREEN_HEIGHT-120,5,60).add_wall()
 
         Wall(450,SCREEN_HEIGHT-180,5,60).add_wall()
-
-
-
-
-
-    
 
 
         #method to display maze

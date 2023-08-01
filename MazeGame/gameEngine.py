@@ -23,9 +23,13 @@ from pygame.locals import (
 )
 
 from gameEntity import Game_Entity, Player, Wall,Exit, all_entities_group, walls_group,Maze,exit_group
+from gameEntity import locked_door_group,Locked_Door,Button,button_group
 
 class Game_Engine:
     def __init__(self) -> None:
+        pass
+
+    def handling_user_input(self):
         pass
 
     pass
@@ -38,7 +42,7 @@ SCREEN_HEIGHT=600
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 screen.fill((133,123,200)) #Fill the screen first because it will fill over everything else
 
-PLAYER_X =750
+PLAYER_X =700
 PLAYER_Y=550
 PLAYER_HEIGHT = 40
 PLAYER_WIDTH= 40
@@ -49,6 +53,7 @@ player = Player(PLAYER_X,PLAYER_Y,40,40)
 #font = pygame.font.Font(get_default_font(),32)
 myfont = pygame.font.SysFont(None,50)
 moves = 0
+pressed_button = False
 
 running =True
 while running:
@@ -75,6 +80,9 @@ while running:
     player.draw_player()
     Exit(SCREEN_WIDTH-50,SCREEN_HEIGHT-130,40,40).add_exit()
     Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze1()
+    Button(750,SCREEN_HEIGHT-30,20,20).add_button()
+    Locked_Door(0,540,60,10).add_locked_door()
+    Locked_Door(500,SCREEN_HEIGHT-60,10,60).add_locked_door()
 
     pygame.display.update()
     if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
@@ -102,7 +110,7 @@ while running:
                     # pygame.display.flip()
                     # time.sleep(1)
                     player.y=550
-                    player.x=750
+                    player.x=700
                 elif event.key ==K_ESCAPE:
                     running=False
             elif event.type==QUIT:
@@ -308,4 +316,45 @@ while running:
                                         running=False
                                 elif event.type==QUIT:
                                     running=False
+    if pygame.sprite.spritecollideany(player,button_group):
+        pressed_button =True
+        # locked_door.colour = (133,123,200)
+        # screen.blit(locked_door.surf, locked_door.rect)
+        # pygame.display.update()
+        
+    if pygame.sprite.spritecollideany(player,locked_door_group):
+        if pressed_button==True:
+            pass
+        elif pressed_button==False:
+            player.kill()
+            #Rendering text if you lose
+            text = myfont.render('You shall not pass! (unless you press the button)', True, PINK, ORCHID)
+            textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+            screen.blit(text, textRect)
+            text1 = myfont.render('Press Y if you want to play this level again', True, PINK, ORCHID)
+            text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+            screen.blit(text1, text1Rect)
+            text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+            text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+            screen.blit(text2, text2Rect)
+            pygame.display.flip()
+            time.sleep(0.5)
+            player.moves=0
+            #running=False
+            for event in pygame.event.get():
+                if event.type==KEYDOWN:
+                    if event.key == K_y:
+                        # text = myfont.render('Good Choice back to the start!', True, PINK, ORCHID) 
+                        # textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)) #Not sure how to get rid of all the text without lots of code
+                        # screen.blit(text, textRect)
+                        # pygame.display.flip()
+                        # time.sleep(1)
+                        player.y=550
+                        player.x=700
+                    elif event.key ==K_ESCAPE:
+                        running=False
+                elif event.type==QUIT:
+                    running=False
+
+
  
