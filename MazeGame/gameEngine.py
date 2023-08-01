@@ -74,7 +74,6 @@ while running:
     pygame.display.update()
     if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
         player.kill()
-
         #Rendering text if you lose
         text = myfont.render('You lost! You hit a wall.', True, PINK, ORCHID)
         textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
@@ -102,14 +101,7 @@ while running:
                     running=False
             elif event.type==QUIT:
                 running=False
-        
-
-
-            
-
-        #Putting player back in starting place
-        # player.y=550
-        # player.x=750
+    #If player reaches exit provide option to play again or exit, if play again by pressing y key loads next level
     if pygame.sprite.spritecollideany(player,exit_group):
         #print("You have won!")
         text = myfont.render('You won!', True, PINK, ORCHID)
@@ -136,7 +128,7 @@ while running:
                     player.x=750
                     pygame.display.update()
                     while running:
-                                    
+
                         for event in pygame.event.get():
                             if event.type ==KEYDOWN:
                                 if event.key ==K_UP:
@@ -151,16 +143,70 @@ while running:
                                     running=False
                             elif event.type==QUIT:
                                 running =False
+                        screen.fill((133,123,200))
                         player.draw_player()
                         Exit(SCREEN_WIDTH-50,50,40,40).add_exit()
                         Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze2()
                         pygame.display.update()
-                    
-                    #time.sleep(2)
-                    #pygame.display.update()
-
-                elif event.key ==K_ESCAPE:
-                    running=False
-            elif event.type==QUIT:
-                running=False
+                        if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
+                            player.kill()
+                            #Rendering text if you lose
+                            text = myfont.render('You lost! You hit a wall.', True, PINK, ORCHID)
+                            textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+                            screen.blit(text, textRect)
+                            text1 = myfont.render('Press Y if you want to play again', True, PINK, ORCHID)
+                            text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+                            screen.blit(text1, text1Rect)
+                            text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+                            text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+                            screen.blit(text2, text2Rect)
+                            pygame.display.flip()
+                            time.sleep(0.5)
+                            #running=False
+                            for event in pygame.event.get():
+                                if event.type==KEYDOWN:
+                                    if event.key == K_y:
+                                        # text = myfont.render('Good Choice back to the start!', True, PINK, ORCHID) 
+                                        # textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)) #Not sure how to get rid of all the text without lots of code
+                                        # screen.blit(text, textRect)
+                                        # pygame.display.flip()
+                                        # time.sleep(1)
+                                        player.y=550
+                                        player.x=750
+                                    elif event.key ==K_ESCAPE:
+                                        running=False
+                                elif event.type==QUIT:
+                                    running=False
+                        #If player reaches exit provide option to play again or exit, if play again by pressing y key loads next level
+                        if pygame.sprite.spritecollideany(player,exit_group):
+                            #print("You have won!")
+                            text = myfont.render('You won!', True, PINK, ORCHID)
+                            textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+                            screen.blit(text, textRect)
+                            text1 = myfont.render('Press Y to play the next level', True, PINK, ORCHID)
+                            text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+                            screen.blit(text1, text1Rect)
+                            text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+                            text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+                            screen.blit(text2, text2Rect)
+                            pygame.display.flip()
+                            time.sleep(0.5)
+                            for event in pygame.event.get():
+                                if event.type==KEYDOWN:
+                                    if event.key == K_y:
+                                        #load maze 2
+                                        for sprite in walls_group:
+                                            sprite.kill()
+                                        for sprite in exit_group:
+                                            sprite.kill()
+                                        screen.fill((133,123,200))
+                                        player.y=550
+                                        player.x=750
+                                        print("New level")
+                                        ##The new level has not been generated yet i think add 1 more level then work on other things
+                                        pygame.display.update()
+                                    elif event.key ==K_ESCAPE:
+                                        running=False
+                                elif event.type==QUIT:
+                                    running=False
  
