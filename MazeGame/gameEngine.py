@@ -19,6 +19,7 @@ from pygame.locals import (
     K_ESCAPE,
     KEYDOWN,
     QUIT,
+    K_y
 )
 
 from gameEntity import Game_Entity, Player, Wall,Exit, all_entities_group, walls_group,Maze,exit_group
@@ -57,7 +58,7 @@ while running:
             if event.key ==K_DOWN:
                 player.y +=20
             if event.key ==K_RIGHT:
-                player.x +=10
+                player.x +=20
             if event.key ==K_LEFT:
                 player.x -=40
             if event.key==K_ESCAPE:
@@ -69,34 +70,97 @@ while running:
     player.draw_player()
     Exit(SCREEN_WIDTH-50,SCREEN_HEIGHT-130,40,40).add_exit()
     Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze1()
-    #Wall(70,70,700,10).add_wall() #Need to put this into maze class somehow
-    #Game_Entity.draw_entities()
-    #Keep player on screen
-    # if Player(PLAYER_X,PLAYER_Y,40,40).draw_player().left < 0: #get this working with the stuff we've got now
-    #     player.rect.left = 0
-    # if player.rect.right > SCREEN_WIDTH:
-    #     player.rect.right = SCREEN_WIDTH
-    # if player.rect.top <= 0:
-    #     player.rect.top = 0
-    # if player.rect.bottom >= SCREEN_HEIGHT:
-    #     player.rect.bottom = SCREEN_HEIGHT
+
     pygame.display.update()
     if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
-        print("You hit a wall! You have lost")
         player.kill()
-        print("RIP")
-        text = myfont.render('You lost! You hit a wall. Back to the start!', True, PINK, ORCHID)
+
+        #Rendering text if you lose
+        text = myfont.render('You lost! You hit a wall.', True, PINK, ORCHID)
         textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
         screen.blit(text, textRect)
+        text1 = myfont.render('Press Y if you want to play again', True, PINK, ORCHID)
+        text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+        screen.blit(text1, text1Rect)
+        text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+        text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+        screen.blit(text2, text2Rect)
         pygame.display.flip()
         time.sleep(0.5)
         #running=False
-        player.y=550
-        player.x=750
+        for event in pygame.event.get():
+            if event.type==KEYDOWN:
+                if event.key == K_y:
+                    # text = myfont.render('Good Choice back to the start!', True, PINK, ORCHID) 
+                    # textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)) #Not sure how to get rid of all the text without lots of code
+                    # screen.blit(text, textRect)
+                    # pygame.display.flip()
+                    # time.sleep(1)
+                    player.y=550
+                    player.x=750
+                elif event.key ==K_ESCAPE:
+                    running=False
+            elif event.type==QUIT:
+                running=False
+        
+
+
+            
+
+        #Putting player back in starting place
+        # player.y=550
+        # player.x=750
     if pygame.sprite.spritecollideany(player,exit_group):
         #print("You have won!")
-        text = myfont.render('GeeksForGeeks', True, PINK, ORCHID)
-        textRect = text.get_rect(topleft =(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-        #textRect.center = 
+        text = myfont.render('You won!', True, PINK, ORCHID)
+        textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
         screen.blit(text, textRect)
+        text1 = myfont.render('Press Y to play the next level', True, PINK, ORCHID)
+        text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+        screen.blit(text1, text1Rect)
+        text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+        text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+        screen.blit(text2, text2Rect)
+        pygame.display.flip()
+        time.sleep(0.5)
+        for event in pygame.event.get():
+            if event.type==KEYDOWN:
+                if event.key == K_y:
+                    #load maze 2
+                    for sprite in walls_group:
+                        sprite.kill()
+                    for sprite in exit_group:
+                        sprite.kill()
+                    screen.fill((133,123,200))
+                    player.y=550
+                    player.x=750
+                    pygame.display.update()
+                    while running:
+                                    
+                        for event in pygame.event.get():
+                            if event.type ==KEYDOWN:
+                                if event.key ==K_UP:
+                                    player.y -= 20
+                                if event.key ==K_DOWN:
+                                    player.y +=20
+                                if event.key ==K_RIGHT:
+                                    player.x +=20
+                                if event.key ==K_LEFT:
+                                    player.x -=40
+                                if event.key==K_ESCAPE:
+                                    running=False
+                            elif event.type==QUIT:
+                                running =False
+                        player.draw_player()
+                        Exit(SCREEN_WIDTH-50,50,40,40).add_exit()
+                        Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze2()
+                        pygame.display.update()
+                    
+                    #time.sleep(2)
+                    #pygame.display.update()
+
+                elif event.key ==K_ESCAPE:
+                    running=False
+            elif event.type==QUIT:
+                running=False
  

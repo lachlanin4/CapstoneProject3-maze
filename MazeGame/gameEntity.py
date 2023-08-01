@@ -133,7 +133,12 @@ class Maze(Wall):
         Wall(60,540,760,5).add_wall()
         Wall(0,540-60,600,5).add_wall()
         #Wall()
-        pass
+    def add_maze2(self):
+        #Generate maze outline
+        Wall(0,0,SCREEN_WIDTH,5).add_wall() #top wall
+        Wall(0,0,5,SCREEN_HEIGHT).add_wall() #left wall
+        Wall(0,SCREEN_HEIGHT-5,SCREEN_WIDTH,5).add_wall() #
+        Wall(SCREEN_WIDTH-5,0,5,SCREEN_HEIGHT).add_wall()
 
 
         #method to display maze
