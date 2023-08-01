@@ -30,9 +30,37 @@ class Game_Engine:
         pass
 
     def handling_user_input(self):
-        pass
-
-    pass
+        for event in pygame.event.get():
+            if event.type ==KEYDOWN:
+                if event.key ==K_UP:
+                    player.y -= 20
+                    player.moves +=1
+                if event.key ==K_DOWN:
+                    player.y +=20
+                    player.moves +=1
+                if event.key ==K_RIGHT:
+                    player.x +=20
+                    player.moves +=1
+                if event.key ==K_LEFT:
+                    player.x -=40
+                    player.moves +=1
+                if event.key==K_ESCAPE:
+                    running=False
+            elif event.type==QUIT:
+                running =False
+    
+    def hit_wall_text(self):
+        text = myfont.render('You lost! You hit a wall.', True, PINK, ORCHID)
+        textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+        screen.blit(text, textRect)
+        text1 = myfont.render('Press Y if you want to play again', True, PINK, ORCHID)
+        text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+        screen.blit(text1, text1Rect)
+        text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+        text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+        screen.blit(text2, text2Rect)
+        pygame.display.flip()
+        time.sleep(0.5)
 
 
 PINK = (255,192,203)   
@@ -57,24 +85,7 @@ pressed_button = False
 
 running =True
 while running:
-    for event in pygame.event.get():
-        if event.type ==KEYDOWN:
-            if event.key ==K_UP:
-                player.y -= 20
-                player.moves +=1
-            if event.key ==K_DOWN:
-                player.y +=20
-                player.moves +=1
-            if event.key ==K_RIGHT:
-                player.x +=20
-                player.moves +=1
-            if event.key ==K_LEFT:
-                player.x -=40
-                player.moves +=1
-            if event.key==K_ESCAPE:
-                running=False
-        elif event.type==QUIT:
-            running =False
+    Game_Engine().handling_user_input()
     
     screen.fill((133,123,200))
     player.draw_player()
@@ -88,19 +99,10 @@ while running:
     if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
         player.kill()
         #Rendering text if you lose
-        text = myfont.render('You lost! You hit a wall.', True, PINK, ORCHID)
-        textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
-        screen.blit(text, textRect)
-        text1 = myfont.render('Press Y if you want to play again', True, PINK, ORCHID)
-        text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
-        screen.blit(text1, text1Rect)
-        text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
-        text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
-        screen.blit(text2, text2Rect)
-        pygame.display.flip()
-        time.sleep(0.5)
+        Game_Engine().hit_wall_text()
         #running=False
         player.moves=0
+        pressed_button=False
         for event in pygame.event.get():
             if event.type==KEYDOWN:
                 if event.key == K_y:
@@ -138,30 +140,13 @@ while running:
                     for sprite in exit_group:
                         sprite.kill()
                     player.moves=0
+                    #pressed_button=False #Would add this if any other levels had a button to press
                     screen.fill((133,123,200))
                     player.y=550
                     player.x=750
                     pygame.display.update()
-                    while running:
-
-                        for event in pygame.event.get():
-                            if event.type ==KEYDOWN:
-                                if event.key ==K_UP:
-                                    player.y -= 20
-                                    player.moves +=1
-                                if event.key ==K_DOWN:
-                                    player.y +=20
-                                    player.moves +=1
-                                if event.key ==K_RIGHT:
-                                    player.x +=20
-                                    player.moves +=1
-                                if event.key ==K_LEFT:
-                                    player.x -=40
-                                    player.moves +=1
-                                if event.key==K_ESCAPE:
-                                    running=False
-                            elif event.type==QUIT:
-                                running =False
+                    while running:      
+                        Game_Engine().handling_user_input()
                         screen.fill((152, 222, 222))
                         player.draw_player()
                         Exit(SCREEN_WIDTH-300,300,40,40).add_exit()
@@ -170,27 +155,12 @@ while running:
                         if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
                             player.kill()
                             #Rendering text if you lose
-                            text = myfont.render('You lost! You hit a wall.', True, PINK, ORCHID)
-                            textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
-                            screen.blit(text, textRect)
-                            text1 = myfont.render('Press Y if you want to play again', True, PINK, ORCHID)
-                            text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
-                            screen.blit(text1, text1Rect)
-                            text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
-                            text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
-                            screen.blit(text2, text2Rect)
-                            pygame.display.flip()
-                            time.sleep(0.5)
+                            Game_Engine().hit_wall_text()
                             player.moves=0
                             #running=False
                             for event in pygame.event.get():
                                 if event.type==KEYDOWN:
                                     if event.key == K_y:
-                                        # text = myfont.render('Good Choice back to the start!', True, PINK, ORCHID) 
-                                        # textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)) #Not sure how to get rid of all the text without lots of code
-                                        # screen.blit(text, textRect)
-                                        # pygame.display.flip()
-                                        # time.sleep(1)
                                         player.y=550
                                         player.x=750
                                     elif event.key ==K_ESCAPE:
@@ -226,25 +196,7 @@ while running:
                                         ##The new level has not been generated yet i think add 1 more level then work on other things
                                         pygame.display.update()
                                         while running:
-
-                                            for event in pygame.event.get():
-                                                if event.type ==KEYDOWN:
-                                                    if event.key ==K_UP:
-                                                        player.y -= 20
-                                                        player.moves +=1
-                                                    if event.key ==K_DOWN:
-                                                        player.y +=20
-                                                        player.moves +=1
-                                                    if event.key ==K_RIGHT:
-                                                        player.x +=20
-                                                        player.moves +=1
-                                                    if event.key ==K_LEFT:
-                                                        player.x -=40
-                                                        player.moves +=1
-                                                    if event.key==K_ESCAPE:
-                                                        running=False
-                                                elif event.type==QUIT:
-                                                    running =False
+                                            Game_Engine().handling_user_input()
                                             screen.fill((23, 166, 154))
                                             player.draw_player()
                                             Exit(SCREEN_WIDTH-50,50,40,40).add_exit()
@@ -253,17 +205,7 @@ while running:
                                             if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
                                                 player.kill()
                                                 #Rendering text if you lose
-                                                text = myfont.render('You lost! You hit a wall.', True, PINK, ORCHID)
-                                                textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
-                                                screen.blit(text, textRect)
-                                                text1 = myfont.render('Press Y if you want to play this level again', True, PINK, ORCHID)
-                                                text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
-                                                screen.blit(text1, text1Rect)
-                                                text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
-                                                text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
-                                                screen.blit(text2, text2Rect)
-                                                pygame.display.flip()
-                                                time.sleep(0.5)
+                                                Game_Engine().hit_wall_text()
                                                 player.moves=0
                                                 #running=False
                                                 for event in pygame.event.get():

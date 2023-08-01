@@ -246,13 +246,3 @@ class Maze():
 
         Wall(450,SCREEN_HEIGHT-180,5,60).add_wall()
 
-
-        #method to display maze
-        #This will be lots of Wall(x,y,width,height).add_wall() instances
-
-        #method to check player has react exit
-    def player_reached_exit(self,playerRect,exitRect):
-        # if pygame.sprite.collide_rect(playerRect,exitRect):
-        #     print("You have won!")
-        #     print("Do you want to quit or play again?")
-        pass
