@@ -110,12 +110,12 @@ class Exit(Game_Entity):
 
 
 
-class Maze(Wall):
+class Maze():
     #considering putting some attributes here if they can be shared by all the instances/mazes
     #start_position=(0,0)
     #exit_position=(end,end)
     def __init__(self,width,height):
-        self.width = width #instance attributes
+        self.width = width #instance attributes #These are unused need to integrate them into the Wall callings
         self.height = height
         self.start_position = None
         self.exit_position = None #need to make exit sprite a rect
@@ -139,6 +139,44 @@ class Maze(Wall):
         Wall(0,0,5,SCREEN_HEIGHT).add_wall() #left wall
         Wall(0,SCREEN_HEIGHT-5,SCREEN_WIDTH,5).add_wall() #
         Wall(SCREEN_WIDTH-5,0,5,SCREEN_HEIGHT).add_wall()
+
+        #Horizontal Walls, have a gap of 60 between their y's
+        Wall(0,SCREEN_HEIGHT-60,120,5).add_wall()
+        Wall(180,SCREEN_HEIGHT-60,300,5).add_wall()
+        Wall(550,SCREEN_HEIGHT-60,300,5).add_wall()
+
+        Wall(60,SCREEN_HEIGHT-120,100,5).add_wall()
+        Wall(240,SCREEN_HEIGHT-120,120,5).add_wall()
+        Wall(390,SCREEN_HEIGHT-120,200,5).add_wall()
+        Wall(640,SCREEN_HEIGHT-120,(800-640-5),5).add_wall()
+
+        Wall(50,SCREEN_HEIGHT-180,500,5).add_wall()
+        Wall(590,SCREEN_HEIGHT-180,120,5).add_wall()
+
+
+        Wall(40,SCREEN_HEIGHT-240,300,5).add_wall()
+        Wall(390,SCREEN_HEIGHT-240,300,5).add_wall()
+        Wall(730,SCREEN_HEIGHT-240,30,5).add_wall()
+
+        #Vertical Walls
+        Wall(680,SCREEN_HEIGHT-120,5,60).add_wall()
+        Wall(270,SCREEN_HEIGHT-120,5,60).add_wall()
+
+        Wall(550,SCREEN_HEIGHT-180,5,65).add_wall()
+        Wall(700,SCREEN_HEIGHT-180,5,65).add_wall()
+
+    def add_maze3(self):
+        #Generate maze outline
+        Wall(0,0,SCREEN_WIDTH,5).add_wall() #top wall
+        Wall(0,0,5,SCREEN_HEIGHT).add_wall() #left wall
+        Wall(0,SCREEN_HEIGHT-5,SCREEN_WIDTH,5).add_wall() #
+        Wall(SCREEN_WIDTH-5,0,5,SCREEN_HEIGHT).add_wall()
+
+        #Horizontal Walls, have a gap of 60 between their y's
+
+
+
+    
 
 
         #method to display maze

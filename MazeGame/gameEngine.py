@@ -202,7 +202,6 @@ while running:
                                         screen.fill((133,123,200))
                                         player.y=550
                                         player.x=750
-                                        print("New level")
                                         ##The new level has not been generated yet i think add 1 more level then work on other things
                                         pygame.display.update()
                                     elif event.key ==K_ESCAPE:
