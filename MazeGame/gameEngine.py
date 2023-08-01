@@ -16,7 +16,7 @@ from pygame.locals import (
     QUIT,
 )
 
-from gameEntity import Game_Entity, Player, Wall,Exit, all_entities_group, walls_group
+from gameEntity import Game_Entity, Player, Wall,Exit, all_entities_group, walls_group,Maze,exit_group
 
 class Game_Engine:
     pass
@@ -29,8 +29,8 @@ SCREEN_HEIGHT=600
 screen=pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 screen.fill((133,123,200)) #Fill the screen first because it will fill over everything else
 
-PLAYER_X =750
-PLAYER_Y=550
+PLAYER_X =760
+PLAYER_Y=560
 PLAYER_HEIGHT = 40
 PLAYER_WIDTH= 40
 
@@ -55,9 +55,9 @@ while running:
     
     screen.fill((133,123,200))
     player.draw_player()
-    #pygame.draw.rect(screen,PINK,(PLAYER_X,PLAYER_Y,PLAYER_WIDTH,PLAYER_HEIGHT))
-    #pygame.draw.rect(screen,PINK,(70,70,80,10))
-    Wall(70,70,700,10).add_wall() #Need to put this into maze class somehow
+    Exit().add_exit()
+    Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze1()
+    #Wall(70,70,700,10).add_wall() #Need to put this into maze class somehow
     #Game_Entity.draw_entities()
     #Keep player on screen
     # if Player(PLAYER_X,PLAYER_Y,40,40).draw_player().left < 0: #get this working with the stuff we've got now
@@ -70,7 +70,11 @@ while running:
     #     player.rect.bottom = SCREEN_HEIGHT
     pygame.display.update()
     if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
-        print("You have lost")
+        print("You hit a wall! You have lost")
         player.kill()
         print("RIP")
-        running=False
+        #running=False
+        player.y=560
+        player.x=760
+    if pygame.sprite.spritecollideany(player,exit_group):
+        print("You have won!")

@@ -87,11 +87,28 @@ class Wall(Game_Entity):
 
     #Add methods to add vertical walls and horizontal walls
         
-
+exit_group = pygame.sprite.Group()
 class Exit(Game_Entity):
      #Tell player they have won
      #Add method to tell player they have won - when their sprites collide player has won
-     pass
+    def __init__(self):
+        super().__init__()
+        self.x = 100
+        self.y=100
+        self.width=40
+        self.height=40
+        self.surf = pygame.Surface((self.width,self.height))
+        self.rect = self.surf.get_rect(topleft=(self.x,self.y))
+
+    def add_exit(self):
+        #self.rect=self.surf.get_rect(topleft=(self.x,self.y))
+        screen.blit(self.surf, self.rect)
+        exit_group.add(self)
+        Game_Entity.add_new_entity(self)
+
+
+
+
 
 class Maze(Wall):
     #considering putting some attributes here if they can be shared by all the instances/mazes
@@ -102,9 +119,14 @@ class Maze(Wall):
         self.height = height
         self.start_position = None
         self.exit_position = None #need to make exit sprite a rect
-        self.layout = None
+        self.layout = []
 
         #method to generate maze
+    def add_maze1(self):
+        Wall(50,550,750,5).add_wall()
+        #Wall()
+        pass
+
 
         #method to display maze
         #This will be lots of Wall(x,y,width,height).add_wall() instances
