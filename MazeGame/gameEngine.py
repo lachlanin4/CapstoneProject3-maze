@@ -62,6 +62,45 @@ class Game_Engine:
         pygame.display.flip()
         time.sleep(0.5)
 
+    def beat_level_text(self):
+        text = myfont.render((f'You beat this level!In {player.moves}moves!'), True, PINK, ORCHID)
+        textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+        screen.blit(text, textRect)
+        text1 = myfont.render('Press Y to play the next level', True, PINK, ORCHID)
+        text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+        screen.blit(text1, text1Rect)
+        text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+        text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+        screen.blit(text2, text2Rect)
+        pygame.display.flip()
+        time.sleep(0.5)
+    
+    def beat_final_level_text(self):
+        text = myfont.render((f'You beat this level!In {player.moves}moves!'), True, PINK, ORCHID)
+        textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+        screen.blit(text, textRect)
+        text1 = myfont.render('Press Y to play from the beginning', True, PINK, ORCHID)
+        text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+        screen.blit(text1, text1Rect)
+        text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+        text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+        screen.blit(text2, text2Rect)
+        pygame.display.flip()
+        time.sleep(0.5)
+
+    def hit_locked_door_text(self):
+        text = myfont.render('You shall not pass! (unless you press the button)', True, PINK, ORCHID)
+        textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+        screen.blit(text, textRect)
+        text1 = myfont.render('Press Y if you want to play this level again', True, PINK, ORCHID)
+        text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
+        screen.blit(text1, text1Rect)
+        text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
+        text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
+        screen.blit(text2, text2Rect)
+        pygame.display.flip()
+        time.sleep(0.5)
+
 
 PINK = (255,192,203)   
 SCREEN_WIDTH=800
@@ -98,9 +137,7 @@ while running:
     pygame.display.update()
     if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
         player.kill()
-        #Rendering text if you lose
         Game_Engine().hit_wall_text()
-        #running=False
         player.moves=0
         pressed_button=False
         for event in pygame.event.get():
@@ -119,18 +156,7 @@ while running:
                 running=False
     #If player reaches exit provide option to play again or exit, if play again by pressing y key loads next level
     if pygame.sprite.spritecollideany(player,exit_group):
-        #print("You have won!")
-        text = myfont.render((f'You beat this level!In {player.moves}moves!'), True, PINK, ORCHID)
-        textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
-        screen.blit(text, textRect)
-        text1 = myfont.render('Press Y to play the next level', True, PINK, ORCHID)
-        text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
-        screen.blit(text1, text1Rect)
-        text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
-        text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
-        screen.blit(text2, text2Rect)
-        pygame.display.flip()
-        time.sleep(0.5)
+        Game_Engine().beat_level_text()
         for event in pygame.event.get():
             if event.type==KEYDOWN:
                 if event.key == K_y:
@@ -154,10 +180,8 @@ while running:
                         pygame.display.update()
                         if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
                             player.kill()
-                            #Rendering text if you lose
                             Game_Engine().hit_wall_text()
                             player.moves=0
-                            #running=False
                             for event in pygame.event.get():
                                 if event.type==KEYDOWN:
                                     if event.key == K_y:
@@ -169,18 +193,7 @@ while running:
                                     running=False
                         #If player reaches exit provide option to play again or exit, if play again by pressing y key loads next level
                         if pygame.sprite.spritecollideany(player,exit_group):
-                            #print("You have won!")
-                            text = myfont.render((f'You beat this level!In {player.moves}moves!'), True, PINK, ORCHID)
-                            textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
-                            screen.blit(text, textRect)
-                            text1 = myfont.render('Press Y to play the next level', True, PINK, ORCHID)
-                            text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
-                            screen.blit(text1, text1Rect)
-                            text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
-                            text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
-                            screen.blit(text2, text2Rect)
-                            pygame.display.flip()
-                            time.sleep(0.5)
+                            Game_Engine().beat_level_text()
                             for event in pygame.event.get():
                                 if event.type==KEYDOWN:
                                     if event.key == K_y:
@@ -193,7 +206,6 @@ while running:
                                         screen.fill((23, 166, 154))
                                         player.y=550
                                         player.x=750
-                                        ##The new level has not been generated yet i think add 1 more level then work on other things
                                         pygame.display.update()
                                         while running:
                                             Game_Engine().handling_user_input()
@@ -224,18 +236,7 @@ while running:
                                                         running=False
                                             #If player reaches exit provide option to play again or exit, if play again by pressing y key loads next level
                                             if pygame.sprite.spritecollideany(player,exit_group):
-                                                #print("You have won!")
-                                                text = myfont.render((f'You beat this level!In {player.moves}moves!'), True, PINK, ORCHID)
-                                                textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
-                                                screen.blit(text, textRect)
-                                                text1 = myfont.render('Press Y to play from the beginning', True, PINK, ORCHID)
-                                                text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
-                                                screen.blit(text1, text1Rect)
-                                                text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
-                                                text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
-                                                screen.blit(text2, text2Rect)
-                                                pygame.display.flip()
-                                                time.sleep(0.5)
+                                                Game_Engine().beat_final_level_text()
                                                 for event in pygame.event.get():
                                                     if event.type==KEYDOWN:
                                                         if event.key == K_y:
@@ -270,27 +271,11 @@ while running:
         elif pressed_button==False:
             player.kill()
             #Rendering text if you lose
-            text = myfont.render('You shall not pass! (unless you press the button)', True, PINK, ORCHID)
-            textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
-            screen.blit(text, textRect)
-            text1 = myfont.render('Press Y if you want to play this level again', True, PINK, ORCHID)
-            text1Rect = text1.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+50))
-            screen.blit(text1, text1Rect)
-            text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
-            text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
-            screen.blit(text2, text2Rect)
-            pygame.display.flip()
-            time.sleep(0.5)
+            Game_Engine().hit_locked_door_text()
             player.moves=0
-            #running=False
             for event in pygame.event.get():
                 if event.type==KEYDOWN:
                     if event.key == K_y:
-                        # text = myfont.render('Good Choice back to the start!', True, PINK, ORCHID) 
-                        # textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)) #Not sure how to get rid of all the text without lots of code
-                        # screen.blit(text, textRect)
-                        # pygame.display.flip()
-                        # time.sleep(1)
                         player.y=550
                         player.x=700
                     elif event.key ==K_ESCAPE:
