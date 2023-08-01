@@ -47,6 +47,7 @@ class Player(Game_Entity):
         self.y = y
         self.width = width
         self.height= height
+        self.moves = 0
         self.surf = pygame.Surface((self.width,self.height))
         self.rect = self.surf.get_rect(topleft=(self.x,self.y))
 
@@ -104,6 +105,25 @@ class Exit(Game_Entity):
         #self.rect=self.surf.get_rect(topleft=(self.x,self.y))
         screen.blit(self.surf, self.rect)
         exit_group.add(self)
+        Game_Entity.add_new_entity(self)
+
+key_group = pygame.sprite.Group()
+class Key(Game_Entity):
+     #Tell player they have won
+     #Add method to tell player they have won - when their sprites collide player has won
+    def __init__(self,x,y,width,height):
+        super().__init__()
+        self.x = x
+        self.y=y
+        self.width=width
+        self.height=height
+        self.surf = pygame.Surface((self.width,self.height))
+        self.rect = self.surf.get_rect(topleft=(self.x,self.y))
+
+    def add_key(self):
+        #self.rect=self.surf.get_rect(topleft=(self.x,self.y))
+        screen.blit(self.surf, self.rect)
+        key_group.add(self)
         Game_Entity.add_new_entity(self)
 
 

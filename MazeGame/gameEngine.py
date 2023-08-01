@@ -48,6 +48,7 @@ PLAYER_WIDTH= 40
 player = Player(PLAYER_X,PLAYER_Y,40,40)
 #font = pygame.font.Font(get_default_font(),32)
 myfont = pygame.font.SysFont(None,50)
+moves = 0
 
 running =True
 while running:
@@ -55,12 +56,16 @@ while running:
         if event.type ==KEYDOWN:
             if event.key ==K_UP:
                 player.y -= 20
+                player.moves +=1
             if event.key ==K_DOWN:
                 player.y +=20
+                player.moves +=1
             if event.key ==K_RIGHT:
                 player.x +=20
+                player.moves +=1
             if event.key ==K_LEFT:
                 player.x -=40
+                player.moves +=1
             if event.key==K_ESCAPE:
                 running=False
         elif event.type==QUIT:
@@ -87,6 +92,7 @@ while running:
         pygame.display.flip()
         time.sleep(0.5)
         #running=False
+        player.moves=0
         for event in pygame.event.get():
             if event.type==KEYDOWN:
                 if event.key == K_y:
@@ -104,7 +110,7 @@ while running:
     #If player reaches exit provide option to play again or exit, if play again by pressing y key loads next level
     if pygame.sprite.spritecollideany(player,exit_group):
         #print("You have won!")
-        text = myfont.render('You won!', True, PINK, ORCHID)
+        text = myfont.render((f'You beat this level!In {player.moves}moves!'), True, PINK, ORCHID)
         textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
         screen.blit(text, textRect)
         text1 = myfont.render('Press Y to play the next level', True, PINK, ORCHID)
@@ -123,6 +129,7 @@ while running:
                         sprite.kill()
                     for sprite in exit_group:
                         sprite.kill()
+                    player.moves=0
                     screen.fill((133,123,200))
                     player.y=550
                     player.x=750
@@ -133,12 +140,16 @@ while running:
                             if event.type ==KEYDOWN:
                                 if event.key ==K_UP:
                                     player.y -= 20
+                                    player.moves +=1
                                 if event.key ==K_DOWN:
                                     player.y +=20
+                                    player.moves +=1
                                 if event.key ==K_RIGHT:
                                     player.x +=20
+                                    player.moves +=1
                                 if event.key ==K_LEFT:
                                     player.x -=40
+                                    player.moves +=1
                                 if event.key==K_ESCAPE:
                                     running=False
                             elif event.type==QUIT:
@@ -162,6 +173,7 @@ while running:
                             screen.blit(text2, text2Rect)
                             pygame.display.flip()
                             time.sleep(0.5)
+                            player.moves=0
                             #running=False
                             for event in pygame.event.get():
                                 if event.type==KEYDOWN:
@@ -180,7 +192,7 @@ while running:
                         #If player reaches exit provide option to play again or exit, if play again by pressing y key loads next level
                         if pygame.sprite.spritecollideany(player,exit_group):
                             #print("You have won!")
-                            text = myfont.render('You won!', True, PINK, ORCHID)
+                            text = myfont.render((f'You beat this level!In {player.moves}moves!'), True, PINK, ORCHID)
                             textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
                             screen.blit(text, textRect)
                             text1 = myfont.render('Press Y to play the next level', True, PINK, ORCHID)
@@ -199,6 +211,7 @@ while running:
                                             sprite.kill()
                                         for sprite in exit_group:
                                             sprite.kill()
+                                        player.moves=0
                                         screen.fill((23, 166, 154))
                                         player.y=550
                                         player.x=750
@@ -210,12 +223,16 @@ while running:
                                                 if event.type ==KEYDOWN:
                                                     if event.key ==K_UP:
                                                         player.y -= 20
+                                                        player.moves +=1
                                                     if event.key ==K_DOWN:
                                                         player.y +=20
+                                                        player.moves +=1
                                                     if event.key ==K_RIGHT:
                                                         player.x +=20
+                                                        player.moves +=1
                                                     if event.key ==K_LEFT:
                                                         player.x -=40
+                                                        player.moves +=1
                                                     if event.key==K_ESCAPE:
                                                         running=False
                                                 elif event.type==QUIT:
@@ -239,6 +256,7 @@ while running:
                                                 screen.blit(text2, text2Rect)
                                                 pygame.display.flip()
                                                 time.sleep(0.5)
+                                                player.moves=0
                                                 #running=False
                                                 for event in pygame.event.get():
                                                     if event.type==KEYDOWN:
@@ -257,7 +275,7 @@ while running:
                                             #If player reaches exit provide option to play again or exit, if play again by pressing y key loads next level
                                             if pygame.sprite.spritecollideany(player,exit_group):
                                                 #print("You have won!")
-                                                text = myfont.render('You beat the game!', True, PINK, ORCHID)
+                                                text = myfont.render((f'You beat this level!In {player.moves}moves!'), True, PINK, ORCHID)
                                                 textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
                                                 screen.blit(text, textRect)
                                                 text1 = myfont.render('Press Y to play from the beginning', True, PINK, ORCHID)
@@ -276,6 +294,7 @@ while running:
                                                                 sprite.kill()
                                                             for sprite in exit_group:
                                                                 sprite.kill()
+                                                            player.moves=0
                                                             screen.fill((23, 166, 154))
                                                             player.y=550
                                                             player.x=750
