@@ -111,10 +111,14 @@ class Game_Engine:
         text2 = myfont.render('Press Esc or close window to Quit', True, PINK, ORCHID)
         text2Rect = text2.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+100))
         screen.blit(text2, text2Rect)
+        text3 = myfont.render('Please be patient after pressing y', True, PINK, ORCHID)
+        text3Rect = text3.get_rect(center =(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2)+150))
+        screen.blit(text3, text3Rect)
         pygame.display.flip()
         time.sleep(0.5)
 
     def collide_wall_check(self):
+        pressed_button=False
         if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
             player.kill()
             Game_Engine().hit_wall_text()
@@ -206,6 +210,53 @@ class Game_Engine:
                                     elif event.type==QUIT:
                                         running=False
 
+    def maze_game_start(self):
+        running=True
+        pressed_button=False
+        while running:
+            Game_Engine().welcome_text()
+            for event in pygame.event.get():
+                if event.type==KEYDOWN:
+                    if event.key == K_y:
+                        while running:
+                            Game_Engine().handling_user_input()
+                            
+                            screen.fill((133,123,200))
+                            player.draw_player()
+                            Exit(SCREEN_WIDTH-50,SCREEN_HEIGHT-130,40,40).add_exit()
+                            Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze1()
+                            Button(750,SCREEN_HEIGHT-30,20,20).add_button()
+                            Locked_Door(0,540,60,10).add_locked_door()
+                            Locked_Door(500,SCREEN_HEIGHT-60,10,60).add_locked_door()
+
+                            pygame.display.update()
+                            Game_Engine().collide_wall_check()
+                            Game_Engine().next_levels()
+                            if pygame.sprite.spritecollideany(player,button_group):
+                                pressed_button =True
+                                
+                            if pygame.sprite.spritecollideany(player,locked_door_group):
+                                if pressed_button==True:
+                                    pass
+                                elif pressed_button==False:
+                                    player.kill()
+                                    #Rendering text if you lose
+                                    Game_Engine().hit_locked_door_text()
+                                    player.moves=0
+                                    for event in pygame.event.get():
+                                        if event.type==KEYDOWN:
+                                            if event.key == K_y:
+                                                player.y=550
+                                                player.x=700
+                                            elif event.key ==K_ESCAPE:
+                                                running=False
+                                        elif event.type==QUIT:
+                                            running=False
+                    elif event.key ==K_ESCAPE:
+                        #running=False
+                        pygame.quit()
+                elif event.type ==QUIT:
+                    running=False
 
     
 
@@ -231,49 +282,7 @@ moves = 0
 pressed_button = False
 
 running =True
-while running:
-    Game_Engine().welcome_text()
-    for event in pygame.event.get():
-        if event.type==KEYDOWN:
-            if event.key == K_y:
-                while running:
-                    Game_Engine().handling_user_input()
-                    
-                    screen.fill((133,123,200))
-                    player.draw_player()
-                    Exit(SCREEN_WIDTH-50,SCREEN_HEIGHT-130,40,40).add_exit()
-                    Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze1()
-                    Button(750,SCREEN_HEIGHT-30,20,20).add_button()
-                    Locked_Door(0,540,60,10).add_locked_door()
-                    Locked_Door(500,SCREEN_HEIGHT-60,10,60).add_locked_door()
-
-                    pygame.display.update()
-                    Game_Engine().collide_wall_check()
-                    Game_Engine().next_levels()
-                    if pygame.sprite.spritecollideany(player,button_group):
-                        pressed_button =True
-                        
-                    if pygame.sprite.spritecollideany(player,locked_door_group):
-                        if pressed_button==True:
-                            pass
-                        elif pressed_button==False:
-                            player.kill()
-                            #Rendering text if you lose
-                            Game_Engine().hit_locked_door_text()
-                            player.moves=0
-                            for event in pygame.event.get():
-                                if event.type==KEYDOWN:
-                                    if event.key == K_y:
-                                        player.y=550
-                                        player.x=700
-                                    elif event.key ==K_ESCAPE:
-                                        running=False
-                                elif event.type==QUIT:
-                                    running=False
-            elif event.key ==K_ESCAPE:
-                running=False
-        elif event.type ==QUIT:
-            running=False
+Game_Engine().maze_game_start()
 
 
  
