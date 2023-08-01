@@ -216,18 +216,11 @@ while running:
                                             pygame.display.update()
                                             if pygame.sprite.spritecollideany(player,walls_group): #After moving checks if player and walls have collided and if so ends games
                                                 player.kill()
-                                                #Rendering text if you lose
                                                 Game_Engine().hit_wall_text()
                                                 player.moves=0
-                                                #running=False
                                                 for event in pygame.event.get():
                                                     if event.type==KEYDOWN:
                                                         if event.key == K_y:
-                                                            # text = myfont.render('Good Choice back to the start!', True, PINK, ORCHID) 
-                                                            # textRect = text.get_rect(center =(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)) #Not sure how to get rid of all the text without lots of code
-                                                            # screen.blit(text, textRect)
-                                                            # pygame.display.flip()
-                                                            # time.sleep(1)
                                                             player.y=550
                                                             player.x=750
                                                         elif event.key ==K_ESCAPE:
