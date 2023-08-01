@@ -225,7 +225,7 @@ class Game_Engine:
                             player.draw_player()
                             Exit(SCREEN_WIDTH-50,SCREEN_HEIGHT-130,40,40).add_exit()
                             Maze(SCREEN_WIDTH,SCREEN_HEIGHT).add_maze1()
-                            Button(750,SCREEN_HEIGHT-30,20,20).add_button()
+                            Button(750,SCREEN_HEIGHT-50,40,40).add_button()
                             Locked_Door(0,540,60,10).add_locked_door()
                             Locked_Door(500,SCREEN_HEIGHT-60,10,60).add_locked_door()
 
