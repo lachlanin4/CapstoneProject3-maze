@@ -48,6 +48,7 @@ class Player(Game_Entity):
         self.width = width
         self.height= height
         self.moves = 0
+        self.image =pygame.image.load('Character.png')
         self.surf = pygame.Surface((self.width,self.height))
         self.rect = self.surf.get_rect(topleft=(self.x,self.y))
 
@@ -55,7 +56,7 @@ class Player(Game_Entity):
         #pygame.draw.rect(screen,PINK,(self.x,self.y,self.width,self.height))
         #print(self.y)
         self.rect=self.surf.get_rect(topleft=(self.x,self.y))
-        screen.blit(self.surf, self.rect)
+        screen.blit(self.image, self.rect)
 
     
 
@@ -93,11 +94,12 @@ class Exit(Game_Entity):
         self.y=y
         self.width=width
         self.height=height
+        self.image = pygame.image.load('Exit.png')
         self.surf = pygame.Surface((self.width,self.height))
         self.rect = self.surf.get_rect(topleft=(self.x,self.y))
 
     def add_exit(self):
-        screen.blit(self.surf, self.rect)
+        screen.blit(self.image, self.rect)
         exit_group.add(self)
         Game_Entity.add_new_entity(self)
 
@@ -113,6 +115,7 @@ class Button(Game_Entity):
         self.surf = pygame.Surface((self.width,self.height))
         self.colour =(124,252,0)
         self.surf.fill(self.colour)
+        self.image = pygame.image.load('button (1).png')
         self.rect = self.surf.get_rect(topleft=(self.x,self.y))
 
     def add_button(self):
