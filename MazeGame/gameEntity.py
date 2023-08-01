@@ -91,12 +91,12 @@ exit_group = pygame.sprite.Group()
 class Exit(Game_Entity):
      #Tell player they have won
      #Add method to tell player they have won - when their sprites collide player has won
-    def __init__(self):
+    def __init__(self,x,y,width,height):
         super().__init__()
-        self.x = 100
-        self.y=100
-        self.width=40
-        self.height=40
+        self.x = x
+        self.y=y
+        self.width=width
+        self.height=height
         self.surf = pygame.Surface((self.width,self.height))
         self.rect = self.surf.get_rect(topleft=(self.x,self.y))
 
@@ -123,7 +123,15 @@ class Maze(Wall):
 
         #method to generate maze
     def add_maze1(self):
-        Wall(50,550,750,5).add_wall()
+        #Generate maze outline
+        Wall(0,0,SCREEN_WIDTH,5).add_wall() #top wall
+        Wall(0,0,5,SCREEN_HEIGHT).add_wall() #left wall
+        Wall(0,SCREEN_HEIGHT-5,SCREEN_WIDTH,5).add_wall() #
+        Wall(SCREEN_WIDTH-5,0,5,SCREEN_HEIGHT).add_wall()
+
+        #Horizontal Wall
+        Wall(60,540,760,5).add_wall()
+        Wall(0,540-60,600,5).add_wall()
         #Wall()
         pass
 
